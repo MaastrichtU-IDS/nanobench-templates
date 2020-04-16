@@ -20,7 +20,7 @@
 }
 :assertion {
   :assertion a nt:AssertionTemplate ;
-    rdfs:label "Describe a dataset with a SPARQL endpoint" ;
+    rdfs:label "Describing a dataset with a SPARQL endpoint" ;
     nt:hasStatement :st0 , :st1 , :st2 , :st3 , :st4 .
   :title a nt:LiteralPlaceholder ;
     rdfs:label "add the name of the dataset here" .
