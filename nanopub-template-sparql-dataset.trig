@@ -1,0 +1,73 @@
+@prefix : <http://purl.org/nanopub/temp/template-boilerplate_> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix np: <http://www.nanopub.org/nschema#> .
+@prefix orcid: <https://orcid.org/> .
+@prefix nt: <https://w3id.org/np/o/ntemplate/> .
+@prefix npx: <http://purl.org/nanopub/x/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dctypes: <http://purl.org/dc/dcmitype/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+:Head {
+  : np:hasAssertion :assertion ;
+    np:hasProvenance :provenance ;
+    np:hasPublicationInfo :pubinfo ;
+    a np:Nanopublication .
+}
+:assertion {
+  :assertion a nt:AssertionTemplate ;
+    rdfs:label "Describe a dataset with a SPARQL endpoint" ;
+    nt:hasStatement :st0 , :st1 , :st2 , :st3 , :st4 .
+  :title a nt:LiteralPlaceholder ;
+    rdfs:label "add the name of the dataset here" .
+  :description a nt:LiteralPlaceholder ;
+    rdfs:label "add the description of the dataset here" .
+  :homepage a nt:UriPlaceholder ;
+    rdfs:label "add the URL to the dataset homepage here" .
+  :sparqlEndpoint a nt:UriPlaceholder ;
+    rdfs:label "add the URL to the dataset SPARQL endpoint here" .
+  :dataset a nt:LocalResource ;
+    rdfs:label "This dataset" .
+  :st0 rdf:object dctypes:Dataset ;
+    rdf:predicate rdf:type ;
+    rdf:subject :dataset ;
+    a rdf:Statement ;
+    nt:statementOrder 0 .
+  :st1 rdf:object :title ;
+    rdf:predicate dct:title ;
+    rdf:subject :dataset ;
+    a rdf:Statement ;
+    nt:statementOrder 1 .
+  :st2 rdf:object :description ;
+    rdf:predicate dct:description ;
+    rdf:subject :dataset ;
+    a rdf:Statement ;
+    nt:statementOrder 2 .
+  :st3 rdf:object :homepage ;
+    rdf:predicate foaf:page ;
+    rdf:subject :dataset ;
+    a rdf:Statement ;
+    nt:statementOrder 3 .
+  :st4 rdf:object :sparqlEndpoint ;
+    rdf:predicate void:sparqlEndpoint ;
+    rdf:subject :dataset ;
+    a rdf:Statement ;
+    nt:statementOrder 4 .
+  dct:title rdfs:label "has name" .
+  dct:description rdfs:label "has description" .
+  foaf:page rdfs:label "has homepage" .
+  void:sparqlEndpoint rdfs:label "has SPARQL endpoint URL" .
+  rdf:type rdfs:label "is a" .
+  dctypes:Dataset rdfs:label "Dataset" .
+}
+:provenance {
+  :assertion prov:wasAttributedTo orcid:0000-0002-1501-1082 .
+}
+:pubinfo {
+  : dct:created "2020-04-14T13:13:44.817+01:00"^^xsd:dateTime ;
+    dct:creator orcid:0000-0002-1501-1082 .
+}
