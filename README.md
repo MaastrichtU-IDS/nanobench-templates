@@ -1,11 +1,11 @@
-This documentation guide you through the creation of templates for [Nanobench](https://github.com/peta-pico/nanobench) to publish RDF [nanopublications](http://nanopub.org).
+This documentation guide you through the creation of templates for [Nanobench](https://github.com/peta-pico/nanobench) to publish RDF [nanopublications](http://nanopub.org). It has been built from a [tutorial to deploy Nanobench](https://d2s.semanticscience.org/blog/2020/04/13/usecase-nanopublication) using the [d2s](https://pypi.org/project/d2s/) tool.
 
 Requirements:
 
 * [Docker](https://www.docker.com/)
 * [ORCID account](https://orcid.org)
 
-> This documentation has been written using Linux and MacOS. It can be run on Windows but you will need to **make sure the filepaths are right**.
+> This documentation has been written using Linux and MacOS. It can be run on Windows but you will need to **make sure the file paths are correct**.
 
 ## Run Nanobench
 
@@ -81,6 +81,8 @@ It should generate a `signed.nanopub-template-sparql-dataset.trig`, you can now 
 docker run -it --rm -v ~/.nanopub:/root/.nanopub -v $(pwd):/data umids/nanopub-java publish /data/signed.nanopub-template-sparql-dataset.trig
 ```
 
+The template is now published! 📋
+
 Our template can now be used at http://localhost:37373/publish?22&template=http://purl.org/np/RAVF_WDsJRkRXXWgaJx5p9EnjLIguIv0-GqDlbfBtBPcQ 
 
 You will need to restart Nanobench to see your template displayed in the http://localhost:37373/publish list.
@@ -88,3 +90,7 @@ You will need to restart Nanobench to see your template displayed in the http://
 See an example of a nanopub generated using this template to describe the Bio2RDF biomedical dataset: http://server.nanopubs.lod.labs.vu.nl/RAjqGxG3uPcnpa7RA1h-QiSnGZqRhnQNCboV4bl-Vj0m8 
 
 Feel free to add more datasets or create new templates!
+
+## Aknowledgments
+
+* Tobias Kuhn
