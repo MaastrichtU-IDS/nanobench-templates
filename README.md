@@ -91,6 +91,6 @@ See an example of a nanopub generated using this template to describe the Bio2RD
 
 Feel free to add more datasets or create new templates!
 
-## Aknowledgments
+## Acknowledgments
 
-* Tobias Kuhn
+* Tobias Kuhn, for his help with publishing nanopubs.
