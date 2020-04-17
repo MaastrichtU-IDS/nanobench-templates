@@ -81,15 +81,24 @@ docker run -it --rm -v ~/.nanopub:/root/.nanopub -v $(pwd):/data umids/nanopub-j
 docker run -it --rm -v ~/.nanopub:/root/.nanopub -v $(pwd):/data umids/nanopub-java publish /data/signed.nanopub-template-sparql-dataset.trig
 ```
 
-* The template is now published! 📋
+* The template is now published! 📋 You will have a URL for your template such as `http://purl.org/np/RAXXXXX` . Please note that once your template is published, there is no way to remove it. 
 
-> You will need to restart Nanobench to see your template displayed in the http://localhost:37373/publish list.
+> You will need to restart Nanobench to see your template displayed in the http://localhost:37373/publish list. 
 
 Our template can now be used at http://localhost:37373/publish?22&template=http://purl.org/np/RAVF_WDsJRkRXXWgaJx5p9EnjLIguIv0-GqDlbfBtBPcQ 
 
 See an example of a nanopub generated using this template to describe the Bio2RDF biomedical dataset: http://server.nanopubs.lod.labs.vu.nl/RAjqGxG3uPcnpa7RA1h-QiSnGZqRhnQNCboV4bl-Vj0m8 
 
 Feel free to add more datasets or create new templates!
+
+### Update the template
+
+- Make your changes in your existing trig file (use `nanopub-template-publication.trig` as an example) 
+- Add `: npx:supersedes <http://purl.org/np/RARw8SJDgZdipsA_sJyn1naeGZsJEfDo0e-_fzJsxkTvQ>` to the pubinfo graph
+- Sign and publish the trig file again (the same as above)
+- The template is now updated! The latest version appears in nanobench (publish tab).
+
+Please note that your updated template will get a new URL. The old template is still visible by the previous URL. 
 
 ## Acknowledgments
 
