@@ -1,0 +1,101 @@
+@prefix : <http://purl.org/nanopub/temp/template-boilerplate_> .
+@prefix db: <http://dbpedia.org/resource/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dctypes: <http://purl.org/dc/dcmitype/> .
+@prefix doco: <http://purl.org/spar/doco/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix np: <http://www.nanopub.org/nschema#> .
+@prefix nt: <https://w3id.org/np/o/ntemplate/> .
+@prefix orcid: <https://orcid.org/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+:Pub_Head_1 {
+  : a np:Nanopublication ;
+    np:hasAssertion :Pub_Assertion_1 ;
+    np:hasProvenance :Pub_Provenance_1 ;
+    np:hasPublicationInfo :Pub_Pubinfo_1 .
+}
+:Pub_Assertion_1 {
+  :Pub_Assertion_1 a nt:AssertionTemplate ;
+    rdfs:label "Describe a publication related to COVID-19" ;
+    nt:hasStatement :st0 , :st1 , :st2 , :st3 , :st4, :st5, :st6, :st7 .
+  :title a nt:LiteralPlaceholder ;
+    rdfs:label "add the full title of the publication here" .
+  :doi a nt:LiteralPlaceholder ;
+    rdfs:label "add the DOI of the publication here" .
+  :authors a nt:LiteralPlaceholder ;
+    rdfs:label "add the authors of the publication here (separate by ; )" .
+  :abstract a nt:LiteralPlaceholder ;
+    rdfs:label "add the abstract of the publication here" .
+  :publishdate a nt:LiteralPlaceholder ;
+    rdfs:label "add the publish date of the publication here (dd-mm-yyyy)" .
+  :publisher a nt:LiteralPlaceholder ;
+    rdfs:label "add the Publisher of the publication here" .
+  :comment a nt:LiteralPlaceholder ;
+    rdfs:label "add your comment to the publication here" .
+  :publication a nt:LocalResource ;
+    rdfs:label "This publication" .
+  :st0 rdf:object dctypes:Document ;
+    rdf:predicate rdf:type ;
+    rdf:subject :publication ;
+    a rdf:Statement ;
+    nt:statementOrder 0 .
+  :st1 rdf:object :title ;
+    rdf:predicate dc:title ;
+    rdf:subject :publication ;
+    a rdf:Statement ;
+    nt:statementOrder 1 .
+  :st2 rdf:object :doi ;
+    rdf:predicate db:Digital_object_identifier ;
+    rdf:subject :publication ;
+    a rdf:Statement ;
+    nt:statementOrder 2 .
+  :st3 rdf:object :authors ;
+    rdf:predicate db:Author ;
+    rdf:subject :publication ;
+    a rdf:Statement ;
+    nt:statementOrder 3 .
+  :st4 rdf:object :abstract ;
+    rdf:predicate doco:Abstract ;
+    rdf:subject :publication ;
+    a rdf:Statement ;
+    nt:statementOrder 4 .
+  :st5 rdf:object :publishdate ;
+    rdf:predicate dc:date ;
+    rdf:subject :publication ;
+    a rdf:Statement ;
+    nt:statementOrder 5 .
+  :st6 rdf:object :publisher ;
+    rdf:predicate db:Publisher ;
+    rdf:subject :publication ;
+    a rdf:Statement ;
+    nt:statementOrder 6 .
+  :st7 rdf:object :comment ;
+    rdf:predicate rdfs:comment ;
+    rdf:subject :publication ;
+    a rdf:Statement ;
+    nt:statementOrder 7 .
+  dctypes:Document rdfs:label "Publication" .
+  dc:title rdfs:label "has title" .
+  db:Digital_object_identifier rdfs:label "has DOI" .
+  db:Author rdfs:label "has authors" .
+  doco:Abstract rdfs:label "has abstract" .
+  dc:date rdfs:label "was published at (date)" .
+  db:Publisher rdfs:label "was published by" .
+  rdfs:comment rdfs:label "has my comment" .
+  rdf:type rdfs:label "is a" .
+
+}
+:Pub_Provenance_1 {
+  :Pub_Assertion_1 prov:wasAttributedTo orcid:0000-0001-8325-8848 .
+}
+:Pub_Pubinfo_1 {
+  : dct:created "2020-04-16T23:00:44.817+01:00"^^xsd:dateTime ;
+    dct:creator orcid:0000-0001-8325-8848 .
+}
