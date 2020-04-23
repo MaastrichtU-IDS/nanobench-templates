@@ -30,7 +30,7 @@
 
   :drug a nt:UriPlaceholder ;
     rdfs:label "add the drug identifier (Bio2RDF prefix:identifier) here" ;
-    nt:hasPrefix "https://w3id.org/dao/" ;
+    nt:hasPrefix "http://bio2rdf.org/" ;
     nt:hasPrefixLabel "the drug" .
     
   :drugaction a nt:UriPlaceholder ;
