@@ -12,7 +12,7 @@
 @prefix dctypes: <http://purl.org/dc/dcmitype/> .
 @prefix void: <http://rdfs.org/ns/void#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix dao: <http://w3id.org/dao/> .
+@prefix dao: <https://w3id.org/dao/dao#> .
 
 :Head {
   : np:hasAssertion :assertion ;
@@ -30,14 +30,13 @@
 
   :drug a nt:UriPlaceholder ;
     rdfs:label "add the drug identifier (Bio2RDF prefix:identifier) here" ;
-    nt:hasPrefix "http://bio2rdf.org/" ;
+    nt:hasPrefix "https://w3id.org/dao/" ;
     nt:hasPrefixLabel "the drug" .
     
   :action a nt:UriPlaceholder ;
-    rdfs:label "add the action {is-indicated-for-treatment-of|is-indicated-for-management-of|is-indicated-for-symptomatic-relief-of|is-indicated-as-adjunct-for|is-contraindicated-with|associated-with-risk-of} here" ;
-    nt:hasPrefix "http://bio2rdf.org/" ;
-    nt:hasPrefixLabel "the action" ;
-    nt:hasRegex "{is-indicated-for-treatment-of|is-indicated-for-management-of|is-indicated-for-symptomatic-relief-of|is-indicated-as-adjunct-for|is-contraindicated-with|associated-with-risk-of|is-used-to-treat|may-treat}" .
+    rdfs:label "add the drug action {is-indicated-for-treatment-of|is-indicated-for-management-of|is-indicated-for-symptomatic-relief-of|is-indicated-as-adjunct-for|is-contraindicated-with|associated-with-risk-of} here" ;
+    nt:hasPrefix "https://w3id.org/dao/dao#" ;
+    nt:hasPrefixLabel "the drug action" .
 
   :phenotype a nt:UriPlaceholder ;
     rdfs:label "add the phenotype/condition/disease/disorder/symptom/adverse event identifier (Bio2RDF prefix:identifier) here" ;
@@ -47,14 +46,14 @@
   :context a nt:LiteralPlaceholder ;
     rdfs:label "add any specified context for the drug action here" .
 
-  :quotedtext a nt:LiteralPlacehodler;
+  :quotedtext a nt:LiteralPlaceholder;
     rdfs:label "quote the supporting text here" .
 
   :source a nt:UriPlaceholder ;
     rdfs:label "add the URL to the source (e.g. DailyMed URL) of the quoted text here" .
  
   :evidence a nt:UriPlaceholder; 
-    rdfs:label "add the evidence type using the Evidence Ontology (https://www.ebi.ac.uk/ols/ontologies/eco) here" ;
+    rdfs:label "add the evidence code from (https://www.ebi.ac.uk/ols/ontologies/eco) here" ;
     nt:hasPrefix "http://purl.obolibrary.org/obo/ECO_" ;
     nt:hasPrefixLabel "the type of evidence" ;
     nt:hasRegex "[0-9]{7}" .
@@ -68,7 +67,7 @@
   :st0 a rdf:Statement ;
     rdf:subject :da ;
     rdf:predicate rdf:type ;
-    rdf:object dao:DrugIndication ;
+    rdf:object dao:DrugAction ;
     nt:statementOrder 0 .
 
   :st1 a rdf:Statement ;
@@ -86,7 +85,7 @@
   :st3 a rdf:Statement ;
     rdf:subject :da ;
     rdf:predicate dao:phenotype ;
-    rdf:object :0000-0003-4727-9435 ;
+    rdf:object :phenotype ;
     nt:statementOrder 3 .
 
   :st4 a rdf:Statement ;
@@ -123,11 +122,11 @@
   dct:title rdfs:label "has name" .
   dao:drug rdfs:label "has drug" .
   dao:drug-action rdfs:label "has drug action" .
-  dao:phenotype rdfs:label "has indication" .
+  dao:phenotype rdfs:label "has phenotype" .
   prov:wasQuotedFrom rdfs:label "was quoted from" .
   prov:wasDerivedFrom rdfs:label "was derived from" .
   dao:context rdfs:label "has context" .
-  dao:evidence rdfs:label "has evidence" .
+  dao:evidence rdfs:label "has type of evidence" .
 
 }
 :provenance {
