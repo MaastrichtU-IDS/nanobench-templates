@@ -33,13 +33,13 @@
     nt:hasPrefix "https://w3id.org/dao/" ;
     nt:hasPrefixLabel "the drug" .
     
-  :action a nt:UriPlaceholder ;
-    rdfs:label "add the drug action {is-indicated-for-treatment-of|is-indicated-for-management-of|is-indicated-for-symptomatic-relief-of|is-indicated-as-adjunct-for|is-contraindicated-with|associated-with-risk-of} here" ;
+  :drugaction a nt:UriPlaceholder ;
+    rdfs:label "add the drug action here" ;
     nt:hasPrefix "https://w3id.org/dao/dao#" ;
     nt:hasPrefixLabel "the drug action" .
 
   :phenotype a nt:UriPlaceholder ;
-    rdfs:label "add the phenotype/condition/disease/disorder/symptom/adverse event identifier (Bio2RDF prefix:identifier) here" ;
+    rdfs:label "add the phenotype id (Bio2RDF prefix:identifier) here" ;
     nt:hasPrefix "http://bio2rdf.org/" ;
     nt:hasPrefixLabel "the phenotype" .
 
@@ -133,6 +133,7 @@
   :assertion prov:wasAttributedTo orcid:0000-0003-4727-9435 .
 }
 :pubinfo {
-  : dct:created "2020-04-14T13:13:44.817+01:00"^^xsd:dateTime ;
-    dct:creator orcid:0000-0003-4727-9435 .
+  : dct:created "2020-04-24T00:45:44.817+01:00"^^xsd:dateTime ;
+    dct:creator orcid:0000-0003-4727-9435 ;
+    npx:supersedes <http://purl.org/np/RANI3UxvW-53913Sah5vr1ldrFSXy7KGKmPyCLbe7Eisg> .
 }
