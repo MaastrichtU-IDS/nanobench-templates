@@ -1,0 +1,139 @@
+@prefix : <http://purl.org/nanopub/temp/template-boilerplate_> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix np: <http://www.nanopub.org/nschema#> .
+@prefix orcid: <https://orcid.org/> .
+@prefix nt: <https://w3id.org/np/o/ntemplate/> .
+@prefix npx: <http://purl.org/nanopub/x/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dctypes: <http://purl.org/dc/dcmitype/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dao: <http://w3id.org/dao/>
+
+:Head {
+  : np:hasAssertion :assertion ;
+    np:hasProvenance :provenance ;
+    np:hasPublicationInfo :pubinfo ;
+    a np:Nanopublication .
+}
+:assertion {
+  :assertion a nt:AssertionTemplate ;
+    rdfs:label "Drug Action template" ;
+    nt:hasStatement :st0 , :st1 , :st2 , :st3 , :st4, :st5, :st6, :st7, :st8 .
+
+  :title a nt:LiteralPlaceholder ;
+    rdfs:label "add the {drug} {action} {phenotype} here" .
+
+  :drug a nt:UriPlaceholder ;
+    rdfs:label "add the drug identifier (Bio2RDF prefix:identifier) here" ;
+    nt:hasPrefix "http://bio2rdf.org/" ;
+    nt:hasPrefixLabel "the drug" .
+    
+  :action a nt:UriPlaceholder ;
+    rdfs:label "add the action {is-indicated-for-treatment-of|is-indicated-for-management-of|is-indicated-for-symptomatic-relief-of|is-indicated-as-adjunct-for|is-contraindicated-with|associated-with-risk-of} here" ;
+    nt:hasPrefix "http://bio2rdf.org/" ;
+    nt:hasPrefixLabel "the action" ;
+    nt:hasRegex "{is-indicated-for-treatment-of|is-indicated-for-management-of|is-indicated-for-symptomatic-relief-of|is-indicated-as-adjunct-for|is-contraindicated-with|associated-with-risk-of|is-used-to-treat|may-treat}" .
+
+  :phenotype a nt:UriPlaceholder ;
+    rdfs:label "add the phenotype/condition/disease/disorder/symptom/adverse event identifier (Bio2RDF prefix:identifier) here" ;
+    nt:hasPrefix "http://bio2rdf.org/" ;
+    nt:hasPrefixLabel "the phenotype" .
+
+  :context a nt:LiteralPlaceholder ;
+    rdfs:label "add any specified context for the drug action here" .
+
+  :quotedtext a nt:LiteralPlacehodler;
+    rdfs:label "quote the supporting text here" .
+
+  :source a nt:UriPlaceholder ;
+    rdfs:label "add the URL to the source (e.g. DailyMed URL) of the quoted text here" .
+ 
+  :evidence a nt:UriPlaceholder; 
+    rdfs:label "add the evidence type using the Evidence Ontology (https://www.ebi.ac.uk/ols/ontologies/eco) here" ;
+    nt:hasPrefix "http://purl.obolibrary.org/obo/ECO_" ;
+    nt:hasPrefixLabel "the type of evidence" ;
+    nt:hasRegex "[0-9]{7}" .
+
+
+  :da a nt:LocalResource ;
+    rdfs:label "This drug action" .
+  :quote a nt:LocalResource;
+    rdfs:label "This quoted text" .
+
+  :st0 a rdf:Statement ;
+    rdf:subject :da ;
+    rdf:predicate rdf:type ;
+    rdf:object dao:DrugIndication ;
+    nt:statementOrder 0 .
+
+  :st1 a rdf:Statement ;
+    rdf:subject :da ;
+    rdf:predicate dao:drug ;
+    rdf:object :drug ;
+    nt:statementOrder 1 .
+
+  :st2 a rdf:Statement ;
+    rdf:subject :da ;
+    rdf:predicate dao:drug-action ;
+    rdf:object :drugaction ;
+    nt:statementOrder 2 .
+
+  :st3 a rdf:Statement ;
+    rdf:subject :da ;
+    rdf:predicate dao:phenotype ;
+    rdf:object :0000-0003-4727-9435) ;
+    nt:statementOrder 3 .
+
+  :st4 a rdf:Statement ;
+    rdf:subject :da ;
+    rdf:predicate dao:context ;
+    rdf:object :context ;
+    nt:statementOrder 4 .
+
+  :st5 a rdf:Statement ;
+    rdf:subject :quote ;
+    rdf:predicate prov:value ;
+    rdf:object :quotedtext ;
+    nt:statementOrder 5 .
+
+  :st6 a rdf:Statement ;
+    rdf:subject :quote ;
+    rdf:predicate prov:wasQuotedFrom ;
+    rdf:object :source ;
+    nt:statementOrder 6 .
+
+  :st7 a rdf:Statement ;
+    rdf:subject :da ;
+    rdf:predicate prov:wasDerivedFrom ;
+    rdf:object :source ;
+    nt:statementOrder 7 .
+
+  :st8 a rdf:Statement ;
+    rdf:subject :da ;
+    rdf:predicate dao:evidence ;
+    rdf:object :evidence ;
+    nt:statementOrder 8 .
+
+  rdf:type rdfs:label "is a" .
+  dct:title rdfs:label "has name" .
+  dao:drug rdfs:label "has drug" .
+  dao:drug-action rdfs:label "has drug action" .
+  dao:phenotype rdfs:label "has indication" .
+  prov:wasQuotedFrom rdfs:label "was quoted from" .
+  prov:wasDerivedFrom rdfs:label "was derived from" .
+  dao:context rdfs:label "has context" .
+  dao:evidence rdfs:label "has evidence" .
+
+}
+:provenance {
+  :assertion prov:wasAttributedTo orcid:0000-0003-4727-9435 .
+}
+:pubinfo {
+  : dct:created "2020-04-14T13:13:44.817+01:00"^^xsd:dateTime ;
+    dct:creator orcid:0000-0003-4727-9435 .
+}
