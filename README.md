@@ -72,13 +72,13 @@ Additionally the type `dcat:Dataset` is used to describe the generated entity.
 * Sign the `nanopub-template-sparql-dataset.trig` in the current folder using [nanopub-java image from DockerHub](https://hub.docker.com/repository/docker/umids/nanopub-java):
 
 ```shell
-docker run -it --rm -v ~/.nanopub:/root/.nanopub -v $(pwd):/data umids/nanopub-java sign /data/nanopub-template-sparql-dataset.trig
+docker run -it --rm -v ~/.nanopub:/root/.nanopub -v $(pwd):/data umids/nanopub-java sign /data/templates/nanopub-template-sparql-dataset.trig
 ```
 
 * It should generate a `signed.nanopub-template-sparql-dataset.trig`, you can now publish it:
 
 ```shell
-docker run -it --rm -v ~/.nanopub:/root/.nanopub -v $(pwd):/data umids/nanopub-java publish /data/signed.nanopub-template-sparql-dataset.trig
+docker run -it --rm -v ~/.nanopub:/root/.nanopub -v $(pwd):/data umids/nanopub-java publish /data/templates/signed.nanopub-template-sparql-dataset.trig
 ```
 
 * The template is now published! 📋 You will have a URL for your template such as `http://purl.org/np/RAXXXXX` . Please note that once your template is published, there is no way to remove it. 
