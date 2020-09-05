@@ -15,7 +15,7 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix biolink: <https://w3id.org/biolink/vocab/> .
 @prefix sepio: <http://purl.obolibrary.org/obo/SEPIO_> .
-
+@prefix dao: <https://w3id.org/dao/dao#> .
 @prefix eco: <http://purl.obolibrary.org/obo/ECO_> .
 
 # Published at http://purl.org/np/RALHoHT9IowYzd70PoUx_izMLserXgm2y08vd0nnaXilI
@@ -30,11 +30,16 @@
 :assertion {
   :assertion a nt:AssertionTemplate ;
     rdfs:label "Adding evidences to a biomedical association" ;
-    nt:hasStatement :st0 , :st1 , :st2 , :st3 , :st4, :st5, :st6, :st7, :st8, :st9, :st10 .
+    nt:hasStatement :st0 , :st1 , :st2 , :st3 , :st4, :st5, :st6, :st7, :st8, :st9, :st10, 
+      :st11 , :st12 .
 
-  :subject a nt:UriPlaceholder ;
-    rdfs:label "add the subject URI here" .
-    
+  :readableassertion a nt:LiteralPlaceholder;
+    rdfs:label "describe the assertion concisely (e.g. tylenol treats pain in adults patients)" .
+
+  :subject a nt:GuidedChoicePlaceholder ;
+    rdfs:label "add the subject URI here" ;
+    nt:possibleValuesFromApi "http://robokop.renci.org:2434/lookup?limit=10&string=" .
+
   :relation a nt:GuidedChoicePlaceholder ;
     rdfs:label "add the BioLink relation here" ;
     nt:possibleValue biolink:interacts_with, biolink:affects, biolink:correlated_with ;
@@ -43,20 +48,33 @@
   :object a nt:UriPlaceholder ;
     rdfs:label "add the object URI here" .
 
-  :negated a nt:GuidedChoicePlaceholder ;
-    rdfs:label "define if the evidence refute the association" ;
-    nt:possibleValue "false", "true" ;
+  :context a nt:LiteralPlaceholder;
+    rdfs:label "describe in which context this assertion is true" .
+
+  :negated a nt:RestrictedChoicePlaceholder ;
+    nt:possibleValue "false", "true" .
 
   :evidencedescription a nt:LiteralPlaceholder;
-    rdfs:label "provide a human-readable description of the evidence here (e.g. quote the supporting text)" .
+    rdfs:label "provide a human-readable description of the evidence here, and how it supports or negates the association" .
 
   :evidenceuri a nt:UriPlaceholder ;
     rdfs:label "add the URL to the source of the evidence here (e.g. DailyMed publication)" .
  
   :evidencetype a nt:GuidedChoicePlaceholder ;
     rdfs:label "add the evidence code from the evidence code ontology here" ;
-    nt:possibleValue eco:0000000 ;
+    nt:possibleValue eco:0000000, eco:0007672, eco:0000006, eco:0000180, eco:0006153, eco:0006152, 
+      eco:0000204, eco:0005548, eco:0000205, eco:0000362 ;
     nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=ECO&q=" .
+
+  eco:0007672 rdfs:label "computational evidence" .
+  eco:0000006 rdfs:label "experimental evidence" .
+  eco:0000180 rdfs:label "clinical study evidence" .
+  eco:0006153 rdfs:label "self-reported individual's statement evidence" .
+  eco:0006152 rdfs:label "medical practitioner statement evidence" .
+  eco:0000204 rdfs:label "author statement" .
+  eco:0005548 rdfs:label "biological system reconstruction evidence based on inference from background scientific knowledge" .
+  eco:0000205 rdfs:label "curator inference" .
+  eco:0000362 rdfs:label "computational inference" .
 
   :association a nt:LocalResource ;
     rdfs:label "This association" .
@@ -66,7 +84,13 @@
   :st0 a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate rdf:type ;
-    rdf:object biolink:Association ;
+    rdf:object biolink:Association .
+    # nt:statementOrder 0 .
+
+  :st11 a rdf:Statement ;
+    rdf:subject :association ;
+    rdf:predicate rdfs:label ;
+    rdf:object :readableassertion ;
     nt:statementOrder 0 .
 
   :st1 a rdf:Statement ;
@@ -87,31 +111,38 @@
     rdf:object :object ;
     nt:statementOrder 3 .
 
+  :st12 a nt:OptionalStatement ;
+    rdf:subject :association  ;
+    rdf:predicate dao:context ;
+    rdf:object :context ;
+    nt:statementOrder 4 .
+
   :st4 a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate biolink:negated ;
     rdf:object :negated ;
-    nt:statementOrder 4 .
+    nt:statementOrder 5 .
 
   :st5 a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate biolink:has_evidence ;
     rdf:object :evidence  ;
-    nt:statementOrder 5 .
+    nt:statementOrder 6 .
 
   :st6 a rdf:Statement ;
     rdf:subject :evidence  ;
     rdf:predicate sepio:0000145 ;
     # has_evidence_from_source. Or use prov:wasQuotedFrom
+    # or biolink:uri
     rdf:object :evidenceuri ;
-    nt:statementOrder 6 .
+    nt:statementOrder 7 .
 
   :st7 a rdf:Statement ;
     rdf:subject :evidence  ;
     rdf:predicate biolink:description ;
     # rdf:predicate prov:value ;
     rdf:object :evidencedescription ;
-    nt:statementOrder 7 .
+    nt:statementOrder 8 .
 
   # Also, SEPIO:0000001 is assertion 
   # See bioportal: https://bioportal.bioontology.org/ontologies/SEPIO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FSEPIO_0000001
@@ -119,24 +150,26 @@
   :st8 a rdf:Statement ;
     rdf:subject :evidence  ;
     rdf:predicate rdf:type ;
-    rdf:object biolink:Publication ;
-    nt:statementOrder 8 .
+    rdf:object biolink:EvidenceType ;
+    # rdf:object biolink:Publication ;
+    nt:statementOrder 9 .
     # TODO: make it a dropdown?
 
-  :st9 a rdf:Statement ;
+  :st9 a nt:OptionalStatement ;
     rdf:subject :evidence  ;
     rdf:predicate sepio:0000398 ;
     # SEPIO predicate for ECO codes (has_evidence_type)
     rdf:object :evidencetype ;
-    nt:statementOrder 9 .
+    nt:statementOrder 10 .
 
   :st10 a rdf:Statement ;
     rdf:subject :evidence  ;
     rdf:predicate biolink:id ;
     rdf:object :evidence  ;
-    nt:statementOrder 10 .
+    nt:statementOrder 11 .
 
   rdf:type rdfs:label "is a" .
+  rdfs:label rdfs:label "described by" .
   biolink:subject rdfs:label "has subject" .
   biolink:relation rdfs:label "has relation" .
   biolink:object rdfs:label "has object" .
@@ -144,6 +177,7 @@
   biolink:description rdfs:label "is described by" .
   biolink:category rdfs:label "has type of evidence" .
   biolink:has_evidence rdfs:label "has evidence" .
+  biolink:EvidenceType rdfs:label "Evidence" .
   biolink:id rdfs:label "has id" .
   sepio:0000145 rdfs:label "has evidence from source" .
   sepio:0000398 rdfs:label "has evidence type (ECO code)" .
@@ -154,7 +188,8 @@
   :assertion prov:wasAttributedTo orcid:0000-0003-4727-9435 .
 }
 :pubinfo {
-  : dct:creator orcid:0000-0003-4727-9435 .
-    dct:created "2020-08-23"^^xsd:dateTime ;
+  : dct:creator orcid:0000-0003-4727-9435 ;
+    dct:created "2020-08-23"^^xsd:date ;
+    # dct:created "2020-08-23T10:00:00+01:00"^^xsd:dateTime ;
     npx:supersedes <http://purl.org/np/RALHoHT9IowYzd70PoUx_izMLserXgm2y08vd0nnaXilI> .
 }
