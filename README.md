@@ -101,6 +101,32 @@ Feel free to add more datasets or create new templates!
 
 > The old template will still be visible at the previous URL.
 
+## Autocomplete from API
+
+
+https://github.com/peta-pico/nanobench/blob/master/src/main/java/org/petapico/nanobench/Template.java#L316
+
+A JSON object is expected, and therein there should be a JSON list. In the list it will look for:
+
+* URI in "@id", "concepturi", or "uri"
+* Label in "prefLabel" or "label"
+* Description in "description" or "definition"
+
+This enables using search APIs such as:
+
+* Wikidata
+  * https://www.wikidata.org/w/api.php?action=wbsearchentities&language=en&format=json&limit=5&search=drug
+* BioPortal
+  * http://data.bioontology.org/search?pagesize=5&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=GO&q=drug
+
+### From a nanopublication
+
+Provide the choices with `rdfs:label` defined: http://purl.org/np/RAdmaRECvfkb2w_ZkL5WECfA7iNBV3yk2qAIQCP2uy038
+
+```
+nt:possibleValuesFrom <http://purl.org/np/RAdmaRECvfkb2w_ZkL5WECfA7iNBV3yk2qAIQCP2uy038>
+```
+
 ## Acknowledgments
 
 * Tobias Kuhn, for his help with publishing nanopubs.
