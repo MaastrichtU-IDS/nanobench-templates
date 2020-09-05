@@ -52,8 +52,12 @@
   :context a nt:LiteralPlaceholder;
     rdfs:label "describe in which context this assertion is true" .
 
+  # TODO: allow to provide any string?
   :negated a nt:RestrictedChoicePlaceholder ;
-    nt:possibleValue "false", "true" .
+    nt:possibleValue biolink:false, biolink:true .
+
+  biolink:true rdfs:label "true" .
+  biolink:false rdfs:label "false" .
 
   :evidencedescription a nt:LiteralPlaceholder;
     rdfs:label "provide a human-readable description of the evidence here, and how it supports or disputes the association" .
@@ -118,7 +122,7 @@
     rdf:object :context ;
     nt:statementOrder 5 .
 
-  :st06 a rdf:Statement ;
+  :st06 a nt:OptionalStatement ;
     rdf:subject :association ;
     rdf:predicate biolink:negated ;
     rdf:object :negated ;
@@ -180,7 +184,7 @@
   biolink:has_evidence rdfs:label "has evidence" .
   biolink:EvidenceType rdfs:label "Evidence" .
   biolink:id rdfs:label "has id" .
-  sepio:0000145 rdfs:label "has evidence from source" .
+  sepio:0000145 rdfs:label "was quoted from" .
   sepio:0000398 rdfs:label "has evidence type (ECO code)" .
   prov:wasQuotedFrom rdfs:label "was quoted from" .
 
@@ -191,5 +195,5 @@
 :pubinfo {
   : dct:creator orcid:0000-0003-4727-9435 ;
     dct:created "2020-09-07T10:00:00+01:00"^^xsd:dateTime ;
-    npx:supersedes <http://purl.org/np/RAkbdX0ScJKKE84G9a7p7ZwtMHUqQ8OJSjfUel26LFEEQ> .
+    npx:supersedes <http://purl.org/np/RAGEBhWnHEoCON2D539rwzyKDHwQjq8CeNOJo5e4fIL30> .
 }
