@@ -29,35 +29,12 @@
 }
 :assertion {
   :assertion a nt:AssertionTemplate ;
-    rdfs:label "Adding evidences to a biomedical association" ;
-    nt:hasStatement :st00 , :st01, :st02 , :st03 , :st04 , :st05, :st06, :st07, :st08, 
-    :st09, :st10, :st11, :st12 .
+    rdfs:label "Adding evidences to an existing nanopublication" ;
+    nt:hasStatement :st00 , :st01, :st02 , :st03 , :st04 , :st05 .
 
-  :readableassertion a nt:LiteralPlaceholder;
-    rdfs:label "describe the assertion concisely (e.g. tylenol treats pain in adults patients)" .
-
-  :subject a nt:GuidedChoicePlaceholder ;
-    rdfs:label "search the source biomedical entity" ;
-    nt:possibleValuesFromApi "http://robokop.renci.org:2434/lookup?limit=10&string=" .
-
-  :relation a nt:GuidedChoicePlaceholder ;
-    rdfs:label "search for the relation in the BioLink model" ;
-    nt:possibleValue biolink:interacts_with, biolink:affects, biolink:correlated_with ;
-    nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
-
-  :object a nt:GuidedChoicePlaceholder ;
-    rdfs:label "search the target biomedical entity" ;
-    nt:possibleValuesFromApi "http://robokop.renci.org:2434/lookup?limit=10&string=" .
-
-  :context a nt:LiteralPlaceholder;
-    rdfs:label "describe in which context this assertion is true" .
-
-  # TODO: allow to provide any string?
-  :negated a nt:RestrictedChoicePlaceholder ;
-    nt:possibleValue biolink:false, biolink:true .
-
-  biolink:true rdfs:label "true" .
-  biolink:false rdfs:label "false" .
+  :nanopubassertion a nt:GuidedChoicePlaceholder ;
+    rdfs:label "search the nanopublication to add an evidence to" ;
+    nt:possibleValuesFromApi "http://grlc.nanopubs.lod.labs.vu.nl/api/local/local/find_signed_nanopubs_with_text?text=" .
 
   :evidencedescription a nt:LiteralPlaceholder;
     rdfs:label "provide a human-readable description of the evidence here, and how it supports or disputes the association" .
@@ -81,104 +58,58 @@
   eco:0000205 rdfs:label "curator inference" .
   eco:0000362 rdfs:label "computational inference" .
 
-  :association a nt:LocalResource ;
-    rdfs:label "This association" .
-  :evidence  a nt:LocalResource;
+  # :association a nt:LocalResource ;
+  #   rdfs:label "This association" .
+  :evidence a nt:LocalResource;
     rdfs:label "This evidence" .
 
   :st00 a rdf:Statement ;
-    rdf:subject :association ;
-    rdf:predicate rdf:type ;
-    rdf:object biolink:Association ;
+    rdf:subject :nanopubassertion ;
+    rdf:predicate biolink:has_evidence ;
+    rdf:object :evidence  ;
     nt:statementOrder 0 .
 
   :st01 a rdf:Statement ;
-    rdf:subject :association ;
-    rdf:predicate rdfs:label ;
-    rdf:object :readableassertion ;
-    nt:statementOrder 1 .
-
-  :st02 a rdf:Statement ;
-    rdf:subject :association ;
-    rdf:predicate biolink:subject ;
-    rdf:object :subject ;
-    nt:statementOrder 2 .
-
-  :st03 a rdf:Statement ;
-    rdf:subject :association ;
-    rdf:predicate biolink:relation ;
-    rdf:object :relation ;
-    nt:statementOrder 3 .
-
-  :st04 a rdf:Statement ;
-    rdf:subject :association ;
-    rdf:predicate biolink:object ;
-    rdf:object :object ;
-    nt:statementOrder 4 .
-
-  :st05 a nt:OptionalStatement ;
-    rdf:subject :association  ;
-    rdf:predicate dao:context ;
-    rdf:object :context ;
-    nt:statementOrder 5 .
-
-  :st06 a nt:OptionalStatement ;
-    rdf:subject :association ;
-    rdf:predicate biolink:negated ;
-    rdf:object :negated ;
-    nt:statementOrder 6 .
-
-  :st07 a rdf:Statement ;
-    rdf:subject :association ;
-    rdf:predicate biolink:has_evidence ;
-    rdf:object :evidence  ;
-    nt:statementOrder 7 .
-
-  :st08 a rdf:Statement ;
     rdf:subject :evidence  ;
     rdf:predicate sepio:0000145 ;
     # has_evidence_from_source. Or use prov:wasQuotedFrom
     # or biolink:uri
     rdf:object :evidenceuri ;
-    nt:statementOrder 8 .
+    nt:statementOrder 1 .
 
-  :st09 a rdf:Statement ;
+  :st02 a rdf:Statement ;
     rdf:subject :evidence  ;
     rdf:predicate biolink:description ;
     # rdf:predicate prov:value ;
     rdf:object :evidencedescription ;
-    nt:statementOrder 9 .
+    nt:statementOrder 2 .
 
-  :st10 a nt:OptionalStatement ;
+  :st03 a nt:OptionalStatement ;
     rdf:subject :evidence  ;
     rdf:predicate sepio:0000398 ;
     # SEPIO predicate for ECO codes (has_evidence_type)
     rdf:object :evidencetype ;
-    nt:statementOrder 10 .
+    nt:statementOrder 3 .
 
-  :st11 a rdf:Statement ;
+  :st04 a rdf:Statement ;
     rdf:subject :evidence  ;
     rdf:predicate biolink:id ;
     rdf:object :evidence  ;
-    nt:statementOrder 11 .
+    nt:statementOrder 4 .
 
   # Also, SEPIO:0000001 is assertion 
   # See bioportal: https://bioportal.bioontology.org/ontologies/SEPIO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FSEPIO_0000001
   # And latest diagram: https://raw.githubusercontent.com/monarch-initiative/SEPIO-ontology/master/docs/SEPIO-HierarchicalView071420.png
-  :st12 a rdf:Statement ;
+  :st05 a rdf:Statement ;
     rdf:subject :evidence  ;
     rdf:predicate rdf:type ;
     rdf:object biolink:EvidenceType ;
     # rdf:object biolink:Publication ;
-    nt:statementOrder 12 .
+    nt:statementOrder 5 .
     # TODO: make it a dropdown?
 
   rdf:type rdfs:label "is a" .
   rdfs:label rdfs:label "asserts that" .
-  biolink:subject rdfs:label "has subject" .
-  biolink:relation rdfs:label "has relation" .
-  biolink:object rdfs:label "has object" .
-  biolink:negated rdfs:label "is negated" .
   biolink:description rdfs:label "is described by" .
   biolink:category rdfs:label "has type of evidence" .
   biolink:has_evidence rdfs:label "has evidence" .
@@ -195,7 +126,6 @@
 }
 :pubinfo {
   : dct:creator orcid:0000-0003-4727-9435 ;
-    dct:created "2020-09-07T10:00:00+01:00"^^xsd:dateTime ;
-    npx:supersedes <http://purl.org/np/RAYtFOO8lglc4TcoHQWeY6nDgkS8Irq2RVDH2rp4foNKw> .
-    # Or http://purl.org/np/RAGEBhWnHEoCON2D539rwzyKDHwQjq8CeNOJo5e4fIL30
+    dct:created "2020-09-08T10:00:00+01:00"^^xsd:dateTime ;
+    npx:supersedes <http://purl.org/np/RAGEBhWnHEoCON2D539rwzyKDHwQjq8CeNOJo5e4fIL30> .
 }
