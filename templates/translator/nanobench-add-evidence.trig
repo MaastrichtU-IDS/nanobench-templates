@@ -64,8 +64,8 @@
   eco:0000205 rdfs:label "curator inference" .
   eco:0000362 rdfs:label "computational inference" .
 
-  # :evidence a nt:LocalResource;
-  #   rdfs:label "This evidence" .
+  :evidence a nt:LocalResource;
+    rdfs:label "This evidence" .
   :thing a nt:UriPlaceholder ;
     rdfs:label "The URI of the association you want to add an evidence to" . 
 
@@ -133,6 +133,7 @@
 :pubinfo {
   : dct:creator orcid:0000-0003-4727-9435 ;
     dct:created "2020-09-18T10:00:00+01:00"^^xsd:dateTime ;
-    # npx:supersedes <> .
-    # http://localhost:37373/publish?1&template=
+    ## TODO: update each time you publish a new version
+    npx:supersedes <http://purl.org/np/RAG15--lYtzU_A2JFOYmM3VzL12iZuCkpwOZzivuAR0yI> .
+    # http://localhost:37373/publish?1&template=http://purl.org/np/RAG15--lYtzU_A2JFOYmM3VzL12iZuCkpwOZzivuAR0yI
 }
