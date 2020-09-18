@@ -127,6 +127,14 @@ Provide the choices with `rdfs:label` defined: http://purl.org/np/RAdmaRECvfkb2w
 nt:possibleValuesFrom <http://purl.org/np/RAdmaRECvfkb2w_ZkL5WECfA7iNBV3yk2qAIQCP2uy038>
 ```
 
+## Run Jupyterlab with Nanopubs
+
+Use Docker to start JupyterLab with [NanopubJL](https://github.com/fair-workflows/NanopubJL) extension preinstalled:
+
+```bash
+docker run -it --rm -p 8888:8888 -v $(pwd):/app/notebooks -v ~/.nanopub:/root/.nanopub -e JUPYTER_TOKEN=password ghcr.io/maastrichtu-ids/jupyterlab-nanopub:latest
+```
+
 ## Acknowledgments
 
 * Tobias Kuhn, for his help with publishing nanopubs.
