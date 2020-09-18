@@ -1,0 +1,138 @@
+@prefix : <http://purl.org/nanopub/temp/template-boilerplate_> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix np: <http://www.nanopub.org/nschema#> .
+@prefix orcid: <https://orcid.org/> .
+@prefix nt: <https://w3id.org/np/o/ntemplate/> .
+@prefix npx: <http://purl.org/nanopub/x/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dctypes: <http://purl.org/dc/dcmitype/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix biolink: <https://w3id.org/biolink/vocab/> .
+@prefix sepio: <http://purl.obolibrary.org/obo/SEPIO_> .
+@prefix dao: <https://w3id.org/dao/dao#> .
+@prefix eco: <http://purl.obolibrary.org/obo/ECO_> .
+
+# Published at http://purl.org/np/RALHoHT9IowYzd70PoUx_izMLserXgm2y08vd0nnaXilI
+# Access it directly: http://localhost:37373/publish?template=http://purl.org/np/RALHoHT9IowYzd70PoUx_izMLserXgm2y08vd0nnaXilI
+
+:Head {
+  : np:hasAssertion :assertion ;
+    np:hasProvenance :provenance ;
+    np:hasPublicationInfo :pubinfo ;
+    a np:Nanopublication .
+}
+:assertion {
+  :assertion a nt:AssertionTemplate ;
+    rdfs:label "Adding evidences to an association" ;
+    nt:hasStatement :st00 , :st01, :st02 , :st03 , :st04 , :st05 .
+    
+    ## Use value from API function
+    # nt:possibleValuesFromApi "http://grlc.nanopubs.lod.labs.vu.nl/api/local/local/find_signed_nanopubs_with_text?text=" .
+    
+    ## Use NanopubApi function + find_signed_things
+    # nt:getPossibleValuesFromNanopubApi "http://purl.org/nanopub/api/find_signed_things?searchterm=paracetamol&type=https://w3id.org/biolink/vocab/Association" .
+    
+    ## This call should work, but find nothing:
+    # http://grlc.nanopubs.lod.labs.vu.nl/api/local/local/find_signed_things?searchterm=paracetamol&type=https://w3id.org/biolink/vocab/Association
+    # Nanopub it should find: http://purl.org/np/RAKSeSviwbfaOpyPaXeZL3V_k1krWVUo7NHsXQBRqbhTA
+
+  :evidencedescription a nt:LiteralPlaceholder;
+    rdfs:label "provide a human-readable description of the evidence here, and how it supports or disputes the association" .
+
+  :evidenceuri a nt:UriPlaceholder ;
+    rdfs:label "add the URL to the source of the evidence here (e.g. DailyMed publication)" .
+ 
+  :evidencetype a nt:GuidedChoicePlaceholder ;
+    rdfs:label "add the evidence code from the evidence code ontology here" ;
+    nt:possibleValue eco:0000000, eco:0007672, eco:0000006, eco:0000180, eco:0006153, eco:0006152, 
+      eco:0000204, eco:0005548, eco:0000205, eco:0000362 ;
+    nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=ECO&q=" .
+
+  eco:0007672 rdfs:label "computational evidence" .
+  eco:0000006 rdfs:label "experimental evidence" .
+  eco:0000180 rdfs:label "clinical study evidence" .
+  eco:0006153 rdfs:label "self-reported individual's statement evidence" .
+  eco:0006152 rdfs:label "medical practitioner statement evidence" .
+  eco:0000204 rdfs:label "author statement" .
+  eco:0005548 rdfs:label "biological system reconstruction evidence based on inference from background scientific knowledge" .
+  eco:0000205 rdfs:label "curator inference" .
+  eco:0000362 rdfs:label "computational inference" .
+
+  # :evidence a nt:LocalResource;
+  #   rdfs:label "This evidence" .
+  :thing a nt:UriPlaceholder ;
+    rdfs:label "The URI of the association you want to add an evidence to" . 
+
+  :st00 a rdf:Statement ;
+    rdf:subject :thing ;
+    rdf:predicate biolink:has_evidence ;
+    rdf:object :evidence  ;
+    nt:statementOrder 0 .
+
+  :st01 a rdf:Statement ;
+    rdf:subject :evidence  ;
+    rdf:predicate sepio:0000145 ;
+    # has_evidence_from_source. Or use prov:wasQuotedFrom
+    # or biolink:uri
+    rdf:object :evidenceuri ;
+    nt:statementOrder 1 .
+
+  :st02 a rdf:Statement ;
+    rdf:subject :evidence  ;
+    rdf:predicate biolink:description ;
+    # rdf:predicate prov:value ;
+    rdf:object :evidencedescription ;
+    nt:statementOrder 2 .
+
+  :st03 a nt:OptionalStatement ;
+    rdf:subject :evidence  ;
+    rdf:predicate sepio:0000398 ;
+    # SEPIO predicate for ECO codes (has_evidence_type)
+    rdf:object :evidencetype ;
+    nt:statementOrder 3 .
+
+  :st04 a rdf:Statement ;
+    rdf:subject :evidence  ;
+    rdf:predicate biolink:id ;
+    rdf:object :evidence  ;
+    nt:statementOrder 4 .
+
+  # Also, SEPIO:0000001 is assertion 
+  # See bioportal: https://bioportal.bioontology.org/ontologies/SEPIO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FSEPIO_0000001
+  # And latest diagram: https://raw.githubusercontent.com/monarch-initiative/SEPIO-ontology/master/docs/SEPIO-HierarchicalView071420.png
+  :st05 a rdf:Statement ;
+    rdf:subject :evidence  ;
+    rdf:predicate rdf:type ;
+    rdf:object biolink:EvidenceType ;
+    # rdf:object biolink:Publication ;
+    nt:statementOrder 5 .
+    # TODO: make it a dropdown?
+
+  rdf:type rdfs:label "is a" .
+  rdfs:label rdfs:label "asserts that" .
+  biolink:description rdfs:label "is described by" .
+  biolink:category rdfs:label "has type of evidence" .
+  biolink:has_evidence rdfs:label "has evidence" .
+  biolink:EvidenceType rdfs:label "Evidence" .
+  biolink:id rdfs:label "has id" .
+  sepio:0000145 rdfs:label "was quoted from" .
+  sepio:0000398 rdfs:label "has evidence type (ECO code)" .
+  dao:context rdfs:label "has context" .
+  prov:wasQuotedFrom rdfs:label "was quoted from" .
+
+}
+:provenance {
+  :assertion prov:wasAttributedTo orcid:0000-0003-4727-9435 .
+}
+:pubinfo {
+  : dct:creator orcid:0000-0003-4727-9435 ;
+    dct:created "2020-09-18T10:00:00+01:00"^^xsd:dateTime ;
+    # npx:supersedes <> .
+    # http://localhost:37373/publish?1&template=
+}

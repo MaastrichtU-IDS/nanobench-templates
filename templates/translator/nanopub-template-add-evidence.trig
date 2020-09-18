@@ -34,7 +34,18 @@
 
   :nanopubassertion a nt:GuidedChoicePlaceholder ;
     rdfs:label "search the nanopublication to add an evidence to" ;
-    nt:possibleValuesFromApi "http://grlc.nanopubs.lod.labs.vu.nl/api/local/local/find_signed_nanopubs_with_text?text=" .
+    ## Use NanopubApi function + find_signed_nanopubs_with_text
+    nt:getPossibleValuesFromNanopubApi "http://purl.org/nanopub/api/find_signed_nanopubs_with_text?text=" .
+    
+    ## Use value from API function
+    # nt:possibleValuesFromApi "http://grlc.nanopubs.lod.labs.vu.nl/api/local/local/find_signed_nanopubs_with_text?text=" .
+    
+    ## Use NanopubApi function + find_signed_things
+    # nt:getPossibleValuesFromNanopubApi "http://purl.org/nanopub/api/find_signed_things?searchterm=paracetamol&type=https://w3id.org/biolink/vocab/Association" .
+    
+    ## This call should work, but find nothing:
+    # http://grlc.nanopubs.lod.labs.vu.nl/api/local/local/find_signed_things?searchterm=paracetamol&type=https://w3id.org/biolink/vocab/Association
+    # Nanopub it should find: http://purl.org/np/RAKSeSviwbfaOpyPaXeZL3V_k1krWVUo7NHsXQBRqbhTA
 
   :evidencedescription a nt:LiteralPlaceholder;
     rdfs:label "provide a human-readable description of the evidence here, and how it supports or disputes the association" .
@@ -127,5 +138,6 @@
 :pubinfo {
   : dct:creator orcid:0000-0003-4727-9435 ;
     dct:created "2020-09-08T10:00:00+01:00"^^xsd:dateTime ;
-    npx:supersedes <http://purl.org/np/RAGEBhWnHEoCON2D539rwzyKDHwQjq8CeNOJo5e4fIL30> .
+    npx:supersedes <http://purl.org/np/RAw060mrhuQ6CrJ7O1U879YcykIdF-nNv_x1sJ0-hi8Nw> .
+    # http://localhost:37373/publish?1&template=http://purl.org/np/RAw060mrhuQ6CrJ7O1U879YcykIdF-nNv_x1sJ0-hi8Nw
 }
