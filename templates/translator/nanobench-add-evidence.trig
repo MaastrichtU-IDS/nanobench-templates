@@ -141,5 +141,5 @@
   : dct:creator orcid:0000-0003-4727-9435 ;
     dct:created "2020-09-18T11:00:00+01:00"^^xsd:dateTime ;
     ## TODO: update each time you publish a new version
-    npx:supersedes <http://purl.org/np/RAGe8pO5920r9jTWFDxUlt3YUNrvRDqzapexGGqZ_q6SU> .
+    npx:supersedes <http://purl.org/np/RAFuSStyFTElQkUq9h7gkvEy4dvheo3KHup73-2YsF6e0> .
 }

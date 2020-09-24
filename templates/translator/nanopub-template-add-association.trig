@@ -142,5 +142,5 @@
 :pubinfo {
   : dct:creator orcid:0000-0003-4727-9435 ;
     dct:created "2020-11-18T10:00:00+01:00"^^xsd:dateTime ;
-    npx:supersedes <http://purl.org/np/RAo54J7f8eprnS6IREy-ba1-OfMDLRVuWCk37XvZWtagw> .
+    npx:supersedes <http://purl.org/np/RAtXhAUQ6vdi1U171bl0vzKjlAiT41ju7qv_2eSMaguBo> .
 }
