@@ -15,6 +15,7 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix biolink: <https://w3id.org/biolink/vocab/> .
 @prefix sepio: <http://purl.obolibrary.org/obo/SEPIO_> .
+@prefix evi: <https://w3id.org/EVI#> .
 @prefix dao: <https://w3id.org/dao/dao#> .
 @prefix eco: <http://purl.obolibrary.org/obo/ECO_> .
 
@@ -34,12 +35,13 @@
 
   :nanopubassertion a nt:GuidedChoicePlaceholder ;
     rdfs:label "search the nanopublication to add an evidence to" ;
+    ## Use value from API function (working with my changes)
+    nt:possibleValuesFromApi "http://purl.org/nanopub/api/find_signed_nanopubs_with_text?text=" .
+    # http://purl.org/nanopub/api/find_signed_nanopubs_with_text?text=paracetamol
+
     ## Use NanopubApi function + find_signed_nanopubs_with_text
-    nt:getPossibleValuesFromNanopubApi "http://purl.org/nanopub/api/find_signed_nanopubs_with_text?text=" .
-    
-    ## Use value from API function
-    # nt:possibleValuesFromApi "http://grlc.nanopubs.lod.labs.vu.nl/api/local/local/find_signed_nanopubs_with_text?text=" .
-    
+    # nt:getPossibleValuesFromNanopubApi "http://purl.org/nanopub/api/find_signed_nanopubs_with_text?text=" .
+
     ## Use NanopubApi function + find_signed_things
     # nt:getPossibleValuesFromNanopubApi "http://purl.org/nanopub/api/find_signed_things?searchterm=paracetamol&type=https://w3id.org/biolink/vocab/Association" .
     
@@ -49,6 +51,16 @@
 
   :evidencedescription a nt:LiteralPlaceholder;
     rdfs:label "provide a human-readable description of the evidence here, and how it supports or disputes the association" .
+
+  # TODO: allow to provide any string?
+  :negated a nt:RestrictedChoicePlaceholder ;
+    nt:possibleValue xsd:false, xsd:true .
+
+  :evidencetype a nt:GuidedChoicePlaceholder ;
+    rdfs:label "add the evidence code from the evidence code ontology here" ;
+    nt:possibleValue eco:0000000, eco:0007672, eco:0000006, eco:0000180, eco:0006153, eco:0006152, 
+      eco:0000204, eco:0005548, eco:0000205, eco:0000362 ;
+    nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=ECO&q=" .
 
   :evidenceuri a nt:UriPlaceholder ;
     rdfs:label "add the URL to the source of the evidence here (e.g. DailyMed publication)" .
@@ -91,18 +103,30 @@
   :st02 a rdf:Statement ;
     rdf:subject :evidence  ;
     rdf:predicate biolink:description ;
-    # rdf:predicate prov:value ;
     rdf:object :evidencedescription ;
     nt:statementOrder 2 .
 
   :st03 a nt:OptionalStatement ;
+    rdf:subject :evidence ;
+    rdf:predicate biolink:negated ;
+    rdf:object :negated ;
+    nt:statementOrder 6 .
+
+  :st04 a nt:OptionalStatement ;
     rdf:subject :evidence  ;
     rdf:predicate sepio:0000398 ;
     # SEPIO predicate for ECO codes (has_evidence_type)
     rdf:object :evidencetype ;
     nt:statementOrder 3 .
 
-  :st04 a rdf:Statement ;
+  :st05 a nt:OptionalStatement ;
+    rdf:subject :evidence  ;
+    rdf:predicate biolink:has_confidence_level ;
+    # SEPIO predicate for ECO codes (has_evidence_type)
+    rdf:object :evidenceconfidence ;
+    nt:statementOrder 3 .
+
+  :st06 a rdf:Statement ;
     rdf:subject :evidence  ;
     rdf:predicate biolink:id ;
     rdf:object :evidence  ;
@@ -111,13 +135,14 @@
   # Also, SEPIO:0000001 is assertion 
   # See bioportal: https://bioportal.bioontology.org/ontologies/SEPIO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FSEPIO_0000001
   # And latest diagram: https://raw.githubusercontent.com/monarch-initiative/SEPIO-ontology/master/docs/SEPIO-HierarchicalView071420.png
-  :st05 a rdf:Statement ;
+  :st07 a rdf:Statement ;
     rdf:subject :evidence  ;
     rdf:predicate rdf:type ;
     rdf:object biolink:EvidenceType ;
     # rdf:object biolink:Publication ;
     nt:statementOrder 5 .
     # TODO: make it a dropdown?
+
 
   rdf:type rdfs:label "is a" .
   rdfs:label rdfs:label "asserts that" .
@@ -130,6 +155,9 @@
   sepio:0000398 rdfs:label "has evidence type (ECO code)" .
   dao:context rdfs:label "has context" .
   prov:wasQuotedFrom rdfs:label "was quoted from" .
+  biolink:negated rdfs:label "is negated" .
+  xsd:true rdfs:label "true" .
+  xsd:false rdfs:label "false" .
 
 }
 :provenance {
@@ -138,6 +166,6 @@
 :pubinfo {
   : dct:creator orcid:0000-0003-4727-9435 ;
     dct:created "2020-09-08T10:00:00+01:00"^^xsd:dateTime ;
-    npx:supersedes <http://purl.org/np/RAw060mrhuQ6CrJ7O1U879YcykIdF-nNv_x1sJ0-hi8Nw> .
+    npx:supersedes <http://purl.org/np/RASec0T6GBrm__wXJ6_P90kG5F_usIAaB8plL7yDaf-uc> .
     # http://localhost:37373/publish?1&template=http://purl.org/np/RAw060mrhuQ6CrJ7O1U879YcykIdF-nNv_x1sJ0-hi8Nw
 }

@@ -15,6 +15,7 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix biolink: <https://w3id.org/biolink/vocab/> .
 @prefix sepio: <http://purl.obolibrary.org/obo/SEPIO_> .
+@prefix evi: <https://w3id.org/EVI#> .
 @prefix dao: <https://w3id.org/dao/dao#> .
 @prefix eco: <http://purl.obolibrary.org/obo/ECO_> .
 
@@ -30,24 +31,23 @@
 :assertion {
   :assertion a nt:AssertionTemplate ;
     rdfs:label "Adding evidences to an association" ;
-    nt:hasStatement :st00 , :st01, :st02 , :st03 , :st04 , :st05 .
+    nt:hasStatement :st00 , :st01, :st02 , :st03 , :st04 , :st05, :st06 .
     
-    ## Use value from API function
-    # nt:possibleValuesFromApi "http://grlc.nanopubs.lod.labs.vu.nl/api/local/local/find_signed_nanopubs_with_text?text=" .
-    
-    ## Use NanopubApi function + find_signed_things
-    # nt:getPossibleValuesFromNanopubApi "http://purl.org/nanopub/api/find_signed_things?searchterm=paracetamol&type=https://w3id.org/biolink/vocab/Association" .
-    
-    ## This call should work, but find nothing:
-    # http://grlc.nanopubs.lod.labs.vu.nl/api/local/local/find_signed_things?searchterm=paracetamol&type=https://w3id.org/biolink/vocab/Association
-    # Nanopub it should find: http://purl.org/np/RAKSeSviwbfaOpyPaXeZL3V_k1krWVUo7NHsXQBRqbhTA
+  :evidencerelation a nt:GuidedChoicePlaceholder ;
+    rdfs:label "define the evidence relation" ;
+    nt:possibleValue biolink:has_evidence, evi:supportedBy, evi:challengedBy, , evi:indirectlySupportedBy, evi:indirectlyChallengedBy ;
+    nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&include_properties=true&ontologies=EVI&q=" .
 
   :evidencedescription a nt:LiteralPlaceholder;
-    rdfs:label "provide a human-readable description of the evidence here, and how it supports or disputes the association" .
+    rdfs:label "provide a human-readable description of the evidence here, and how it supports or challenges the association" .
 
   :evidenceuri a nt:UriPlaceholder ;
     rdfs:label "add the URL to the source of the evidence here (e.g. DailyMed publication)" .
  
+  :confidencescore a nt:GuidedChoicePlaceholder ;
+    rdfs:label "add the evidence code from the evidence code ontology here" ;
+    nt:possibleValue 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 .
+
   :evidencetype a nt:GuidedChoicePlaceholder ;
     rdfs:label "add the evidence code from the evidence code ontology here" ;
     nt:possibleValue eco:0000000, eco:0007672, eco:0000006, eco:0000180, eco:0006153, eco:0006152, 
@@ -71,7 +71,7 @@
 
   :st00 a rdf:Statement ;
     rdf:subject :thing ;
-    rdf:predicate biolink:has_evidence ;
+    rdf:predicate :evidencerelation ;
     rdf:object :evidence  ;
     nt:statementOrder 0 .
 
@@ -91,13 +91,19 @@
     nt:statementOrder 2 .
 
   :st03 a nt:OptionalStatement ;
+    rdf:subject :evidence ;
+    rdf:predicate biolink:has_confidence_level ;
+    rdf:object :confidencescore ;
+    nt:statementOrder 6 .
+
+  :st04 a nt:OptionalStatement ;
     rdf:subject :evidence  ;
     rdf:predicate sepio:0000398 ;
     # SEPIO predicate for ECO codes (has_evidence_type)
     rdf:object :evidencetype ;
     nt:statementOrder 3 .
 
-  :st04 a rdf:Statement ;
+  :st05 a rdf:Statement ;
     rdf:subject :evidence  ;
     rdf:predicate biolink:id ;
     rdf:object :evidence  ;
@@ -106,7 +112,7 @@
   # Also, SEPIO:0000001 is assertion 
   # See bioportal: https://bioportal.bioontology.org/ontologies/SEPIO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FSEPIO_0000001
   # And latest diagram: https://raw.githubusercontent.com/monarch-initiative/SEPIO-ontology/master/docs/SEPIO-HierarchicalView071420.png
-  :st05 a rdf:Statement ;
+  :st06 a rdf:Statement ;
     rdf:subject :evidence  ;
     rdf:predicate rdf:type ;
     rdf:object biolink:EvidenceType ;
@@ -125,6 +131,7 @@
   sepio:0000398 rdfs:label "has evidence type (ECO code)" .
   dao:context rdfs:label "has context" .
   prov:wasQuotedFrom rdfs:label "was quoted from" .
+  biolink:has_confidence_level rdfs:label "has a confidence level of"
 
 }
 :provenance {
@@ -132,8 +139,7 @@
 }
 :pubinfo {
   : dct:creator orcid:0000-0003-4727-9435 ;
-    dct:created "2020-09-18T10:00:00+01:00"^^xsd:dateTime ;
+    dct:created "2020-09-18T11:00:00+01:00"^^xsd:dateTime ;
     ## TODO: update each time you publish a new version
-    npx:supersedes <http://purl.org/np/RAG15--lYtzU_A2JFOYmM3VzL12iZuCkpwOZzivuAR0yI> .
-    # http://localhost:37373/publish?1&template=http://purl.org/np/RAG15--lYtzU_A2JFOYmM3VzL12iZuCkpwOZzivuAR0yI
+    npx:supersedes <http://purl.org/np/RAGe8pO5920r9jTWFDxUlt3YUNrvRDqzapexGGqZ_q6SU> .
 }

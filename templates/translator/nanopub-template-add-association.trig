@@ -15,6 +15,7 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix biolink: <https://w3id.org/biolink/vocab/> .
 @prefix sepio: <http://purl.obolibrary.org/obo/SEPIO_> .
+@prefix evi: <https://w3id.org/EVI#> .
 @prefix dao: <https://w3id.org/dao/dao#> .
 @prefix eco: <http://purl.obolibrary.org/obo/ECO_> .
 
@@ -29,15 +30,20 @@
 }
 :assertion {
   :assertion a nt:AssertionTemplate ;
-    rdfs:label "Add a biomedical association" ;
-    nt:hasStatement :st00 , :st01, :st02 , :st03 , :st04 , :st05, :st06 .
+    rdfs:label "Defining a biomedical association" ;
+    nt:hasStatement :st00 , :st01, :st02 , :st03 , :st04 , :st05, :st06, :st07 .
 
   :readableassertion a nt:LiteralPlaceholder;
     rdfs:label "describe the assertion concisely (e.g. tylenol treats pain in adults patients)" .
 
   :subject a nt:GuidedChoicePlaceholder ;
-    rdfs:label "search the source biomedical entity" ;
+    rdfs:label "source biomedical entity" ;
     nt:possibleValuesFromApi "http://robokop.renci.org:2434/lookup?limit=10&string=" .
+
+  :subjectType a nt:GuidedChoicePlaceholder ;
+    rdfs:label "search for the subject class in the BioLink model" ;
+    nt:possibleValue biolink:Drug, biolink:Disease, biolink:Gene, biolink:Protein ;
+    nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
 
   :relation a nt:GuidedChoicePlaceholder ;
     rdfs:label "search for the relation in the BioLink model" ;
@@ -45,18 +51,22 @@
     nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
 
   :object a nt:GuidedChoicePlaceholder ;
-    rdfs:label "search the target biomedical entity" ;
+    rdfs:label "target biomedical entity" ;
     nt:possibleValuesFromApi "http://robokop.renci.org:2434/lookup?limit=10&string=" .
+
+  :objectType a nt:GuidedChoicePlaceholder ;
+    rdfs:label "search for the object class in the BioLink model" ;
+    nt:possibleValue biolink:Drug, biolink:Disease, biolink:Gene, biolink:Protein ;
+    nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
 
   :context a nt:LiteralPlaceholder;
     rdfs:label "describe in which context this assertion is true" .
 
-  # TODO: allow to provide any string?
-  :negated a nt:RestrictedChoicePlaceholder ;
-    nt:possibleValue biolink:false, biolink:true .
-
-  biolink:true rdfs:label "true" .
-  biolink:false rdfs:label "false" .
+  # TODO: allow nanobench to take any string?
+  # :negated a nt:RestrictedChoicePlaceholder ;
+  #   nt:possibleValue xsd:false, xsd:true .
+  # xsd:true rdfs:label "true" .
+  # xsd:false rdfs:label "false" .
 
   :association a nt:LocalResource ;
     rdfs:label "This association" .
@@ -80,37 +90,50 @@
     nt:statementOrder 2 .
 
   :st03 a rdf:Statement ;
+    rdf:subject :subject ;
+    rdf:predicate rdf:type ;
+    rdf:object :subjectType ;
+    nt:statementOrder 2 .
+
+  :st04 a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate biolink:relation ;
     rdf:object :relation ;
     nt:statementOrder 3 .
 
-  :st04 a rdf:Statement ;
+  :st05 a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate biolink:object ;
     rdf:object :object ;
     nt:statementOrder 4 .
 
-  :st05 a nt:OptionalStatement ;
+  :st06 a rdf:Statement ;
+    rdf:subject :object ;
+    rdf:predicate rdf:type ;
+    rdf:object :objectType ;
+    nt:statementOrder 2 .
+
+  :st07 a nt:OptionalStatement ;
     rdf:subject :association  ;
     rdf:predicate dao:context ;
     rdf:object :context ;
     nt:statementOrder 5 .
 
-  :st06 a nt:OptionalStatement ;
-    rdf:subject :association ;
-    rdf:predicate biolink:negated ;
-    rdf:object :negated ;
-    nt:statementOrder 6 .
+  # :st08 a nt:OptionalStatement ;
+  #   rdf:subject :association ;
+  #   rdf:predicate biolink:negated ;
+  #   rdf:object :negated ;
+  #   nt:statementOrder 6 .
 
   rdf:type rdfs:label "is a" .
   rdfs:label rdfs:label "asserts that" .
   biolink:subject rdfs:label "has subject" .
   biolink:relation rdfs:label "has relation" .
   biolink:object rdfs:label "has object" .
-  biolink:negated rdfs:label "is negated" .
   biolink:description rdfs:label "is described by" .
   biolink:id rdfs:label "has id" .
+  dao:context rdfs:label "has context" .
+  # biolink:negated rdfs:label "is negated" .
 
 }
 :provenance {
@@ -118,6 +141,6 @@
 }
 :pubinfo {
   : dct:creator orcid:0000-0003-4727-9435 ;
-    dct:created "2020-09-07T10:00:00+01:00"^^xsd:dateTime ;
-    npx:supersedes <http://purl.org/np/RAYtFOO8lglc4TcoHQWeY6nDgkS8Irq2RVDH2rp4foNKw> .
+    dct:created "2020-11-18T10:00:00+01:00"^^xsd:dateTime ;
+    npx:supersedes <http://purl.org/np/RAo54J7f8eprnS6IREy-ba1-OfMDLRVuWCk37XvZWtagw> .
 }
