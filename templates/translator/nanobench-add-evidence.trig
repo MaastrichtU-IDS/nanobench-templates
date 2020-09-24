@@ -35,7 +35,7 @@
     
   :evidencerelation a nt:GuidedChoicePlaceholder ;
     rdfs:label "define the evidence relation" ;
-    nt:possibleValue biolink:has_evidence, evi:supportedBy, evi:challengedBy, , evi:indirectlySupportedBy, evi:indirectlyChallengedBy ;
+    nt:possibleValue biolink:has_evidence, evi:supportedBy, evi:challengedBy, evi:indirectlySupportedBy, evi:indirectlyChallengedBy ;
     nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&include_properties=true&ontologies=EVI&q=" .
 
   :evidencedescription a nt:LiteralPlaceholder;

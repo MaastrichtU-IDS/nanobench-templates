@@ -30,7 +30,7 @@
 }
 :assertion {
   :assertion a nt:AssertionTemplate ;
-    rdfs:label "Adding evidences to an existing nanopublication" ;
+    rdfs:label "Searching a Nanopublication to add an evidence to" ;
     nt:hasStatement :st00 , :st01, :st02 , :st03 , :st04 , :st05 .
 
   :nanopubassertion a nt:GuidedChoicePlaceholder ;
@@ -167,5 +167,4 @@
   : dct:creator orcid:0000-0003-4727-9435 ;
     dct:created "2020-09-08T10:00:00+01:00"^^xsd:dateTime ;
     npx:supersedes <http://purl.org/np/RASec0T6GBrm__wXJ6_P90kG5F_usIAaB8plL7yDaf-uc> .
-    # http://localhost:37373/publish?1&template=http://purl.org/np/RAw060mrhuQ6CrJ7O1U879YcykIdF-nNv_x1sJ0-hi8Nw
 }
