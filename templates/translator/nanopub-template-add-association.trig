@@ -42,12 +42,12 @@
 
   :subjectType a nt:GuidedChoicePlaceholder ;
     rdfs:label "search for the subject class in the BioLink model" ;
-    nt:possibleValue biolink:Drug, biolink:Disease, biolink:Gene, biolink:Protein ;
+    nt:possibleValue biolink:Drug, biolink:Disease, biolink:Gene, biolink:Protein, biolink:ChemicalSubstance ;
     nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
 
   :relation a nt:GuidedChoicePlaceholder ;
     rdfs:label "search for the relation in the BioLink model" ;
-    nt:possibleValue biolink:interacts_with, biolink:affects, biolink:correlated_with ;
+    nt:possibleValue biolink:treated_by, biolink:treats, biolink:interacts_with, biolink:affects, biolink:correlated_with ;
     nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
 
   :object a nt:GuidedChoicePlaceholder ;
@@ -56,7 +56,7 @@
 
   :objectType a nt:GuidedChoicePlaceholder ;
     rdfs:label "search for the object class in the BioLink model" ;
-    nt:possibleValue biolink:Drug, biolink:Disease, biolink:Gene, biolink:Protein ;
+    nt:possibleValue biolink:Drug, biolink:Disease, biolink:Gene, biolink:Protein, biolink:ChemicalSubstance ;
     nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
 
   :context a nt:LiteralPlaceholder;
@@ -142,5 +142,5 @@
 :pubinfo {
   : dct:creator orcid:0000-0003-4727-9435 ;
     dct:created "2020-11-18T10:00:00+01:00"^^xsd:dateTime ;
-    npx:supersedes <http://purl.org/np/RAtXhAUQ6vdi1U171bl0vzKjlAiT41ju7qv_2eSMaguBo> .
+    npx:supersedes <http://purl.org/np/RA4jgstrKZjsWlc7eEL0Dm_lbR6-UrdRjRMZRB0nlek6c> .
 }
