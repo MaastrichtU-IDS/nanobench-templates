@@ -38,7 +38,7 @@
 
   :subject a nt:GuidedChoicePlaceholder ;
     rdfs:label "source biomedical entity" ;
-    nt:possibleValuesFromApi "http://robokop.renci.org:2434/lookup?limit=10&string=" .
+    nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
 
   :subjectType a nt:GuidedChoicePlaceholder ;
     rdfs:label "search for the subject class in the BioLink model" ;
@@ -52,7 +52,7 @@
 
   :object a nt:GuidedChoicePlaceholder ;
     rdfs:label "target biomedical entity" ;
-    nt:possibleValuesFromApi "http://robokop.renci.org:2434/lookup?limit=10&string=" .
+    nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
 
   :objectType a nt:GuidedChoicePlaceholder ;
     rdfs:label "search for the object class in the BioLink model" ;
@@ -142,5 +142,5 @@
 :pubinfo {
   : dct:creator orcid:0000-0003-4727-9435 ;
     dct:created "2020-11-18T10:00:00+01:00"^^xsd:dateTime ;
-    npx:supersedes <http://purl.org/np/RA4jgstrKZjsWlc7eEL0Dm_lbR6-UrdRjRMZRB0nlek6c> .
+    npx:supersedes <http://purl.org/np/RAwEPliMzsMKtz8JHXdQuFm9hiyHrByRzxacz2oXQwD9E> .
 }

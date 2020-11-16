@@ -3,6 +3,8 @@
 @prefix bl: <https://w3id.org/biolink/vocab/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
+# Source: https://biolink.github.io/biolink-model/guidelines/working-with-the-model.html#biolink-model-representation-in-rdf
+
 <http://identifiers.org/uniprot/P84085>
   rdfs:label "ARF5"^^xsd:string ;
   bl:category bl:Protein ;
