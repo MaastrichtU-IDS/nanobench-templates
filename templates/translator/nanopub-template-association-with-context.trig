@@ -305,8 +305,8 @@
   rdf:subject rdfs:label "has subject" .
   rdf:object rdfs:label "has object" .
   rdf:predicate rdfs:label "has predicate" .
-  bl:association_type rdfs:label "has type"
-  bl:relation rdfs:label "has relation"
+  bl:association_type rdfs:label "has type" .
+  bl:relation rdfs:label "has relation" .
   bl:category rdfs:label "is a" .
   rdf:type rdfs:label "has type" .
   bl:name rdfs:label "is defined as" .
