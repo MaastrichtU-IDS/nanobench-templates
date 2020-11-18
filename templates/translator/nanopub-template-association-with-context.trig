@@ -34,12 +34,10 @@
     nt:hasStatement :st00 , :st01, :st02 , :st03 , :st04 , :st05, :st06, :st07, 
       :st08, :st09, :st10, :st11, :st12, :st13, :st14, :st15, :st16 .
 
-  # capable of upregulating or causing pathological process
-  # And capable of inhibiting or preventing pathological process
   :associationRelation a nt:GuidedChoicePlaceholder ;
     rdfs:label "provide the relation between the 2 concepts of the association" ;
-    nt:possibleValue <http://purl.obolibrary.org/obo/RO_0002600> , # 
-        <http://purl.obolibrary.org/obo/RO_0002599> .
+    nt:possibleValuesFromApi "https://www.ebi.ac.uk/ols/api/select?ontology=ro&q=" .
+  # https://www.ebi.ac.uk/ols/docs/api
 
   :associationType a nt:GuidedChoicePlaceholder ;
     rdfs:label "provide the association class from the BioLink model" ;
@@ -170,7 +168,7 @@
 
   :st00 a rdf:Statement ;
     rdf:subject :association ;
-    rdf:predicate bl:name ;
+    rdf:predicate rdfs:label ;
     rdf:object :readableassertion ;
     nt:statementOrder 1 .
 
@@ -254,7 +252,7 @@
 
   :st13 a nt:OptionalStatement ;
     rdf:subject :lifeStage ;
-    rdf:predicate bl:name ;
+    rdf:predicate rdfs:label ;
     rdf:object :lifeStageName ;
     nt:statementOrder 13 .
 
@@ -281,7 +279,7 @@
     #   bl:subject a bl:PopulationOfIndividualOrganisms
     #     bl:has_phenotype
     #   bl:stage_qualifier a bl:LifeStage
-    #     bl:name "adult" (or "18-30")
+    #     rdfs:label "adult" (or "18-30")
     #   bl:relation bl:decreases_response_to
     #   bl:object a bl:Disease (or bl:ChemicalToDiseaseAssociation?)
     #   bl:has_drug a bl:Drug (from the association object)
@@ -309,7 +307,7 @@
   bl:relation rdfs:label "has relation" .
   bl:category rdfs:label "is a" .
   rdf:type rdfs:label "has type" .
-  bl:name rdfs:label "is defined as" .
+  rdfs:label rdfs:label "has label" .
 
   bl:negated rdfs:label "is negated" .
   bl:has_drug rdfs:label "uses drug" .
@@ -321,7 +319,6 @@
 
   bl:description rdfs:label "is described by" .
   bl:id rdfs:label "has id" .
-  bl:name rdfs:label "asserts that" .
 
 }
 :provenance {
@@ -329,6 +326,6 @@
 }
 :pubinfo {
   : dct:creator orcid:0000-0003-4727-9435 ;
-    dct:created "2020-11-02T10:00:00+01:00"^^xsd:dateTime .
-    npx:supersedes <http://purl.org/np/RAapknSKaEkcpmLmq5NTRC2L62IEox6U3O_aQVoHXdkLk> .
+    dct:created "2020-11-19T10:00:00+01:00"^^xsd:dateTime .
+    npx:supersedes <http://purl.org/np/RAAdEyxoy0xW37qmApBFwIdMX1a3qDJOigUSluB1DgF4c> .
 }
