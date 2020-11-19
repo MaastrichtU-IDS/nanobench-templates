@@ -56,12 +56,6 @@
   :negated a nt:RestrictedChoicePlaceholder ;
     nt:possibleValue xsd:false, xsd:true .
 
-  :evidencetype a nt:GuidedChoicePlaceholder ;
-    rdfs:label "add the evidence code from the evidence code ontology here" ;
-    nt:possibleValue eco:0000000, eco:0007672, eco:0000006, eco:0000180, eco:0006153, eco:0006152, 
-      eco:0000204, eco:0005548, eco:0000205, eco:0000362 ;
-    nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=ECO&q=" .
-
   :evidenceuri a nt:UriPlaceholder ;
     rdfs:label "add the URL to the source of the evidence here (e.g. DailyMed publication)" .
  

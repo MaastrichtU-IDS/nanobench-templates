@@ -59,7 +59,6 @@
   a <http://purl.obolibrary.org/obo/SO_0001217> ;
   bl:in_taxon <http://purl.obolibrary.org/obo/NCBITaxon_9606> ;
   bl:has_gene_product <http://identifiers.org/uniprot/O43307> .
-
 <http://www.ncbi.nlm.nih.gov/gene/2081>
   rdfs:label "ERN1"^^xsd:string ;
   bl:category bl:Gene ;
@@ -70,6 +69,7 @@
   bl:has_gene_product <http://identifiers.org/uniprot/O75460> .
 
 <https://www.example.org/UNKNOWN/985eb9e6-e0bf-4cef-be0a-3d8ea12d228b>
+  a rdf:Statement ; # Added
   rdf:subject <http://www.ncbi.nlm.nih.gov/gene/381> ;
   rdf:predicate bl:interacts_with ;
   rdf:object <http://www.ncbi.nlm.nih.gov/gene/805> ;

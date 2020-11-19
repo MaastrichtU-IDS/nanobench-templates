@@ -32,10 +32,10 @@
   :assertion a nt:AssertionTemplate ;
     rdfs:label "Defining a biomedical association with its context" ;
     nt:hasStatement :st00 , :st01, :st02 , :st03 , :st04 , :st05, :st06, :st07, 
-      :st08, :st09, :st10, :st11, :st12, :st13, :st14, :st15, :st16 .
+      :st08, :st09, :st10, :st11, :st12, :st13, :st14, :st15, :st16, :st17, :st18, :st19 .
 
   :associationRelation a nt:GuidedChoicePlaceholder ;
-    rdfs:label "provide the relation between the 2 concepts of the association" ;
+    rdfs:label "provide the relation between the 2 concepts of the association from RO (e.g. interacts with)" ;
     nt:possibleValuesFromApi "https://www.ebi.ac.uk/ols/api/select?ontology=ro&q=" .
   # https://www.ebi.ac.uk/ols/docs/api
 
@@ -53,7 +53,7 @@
     rdfs:label "describe the assertion concisely (e.g. tylenol treats pain in adults patients)" .
 
   :subject a nt:GuidedChoicePlaceholder ;
-    rdfs:label "source biomedical entity" ;
+    rdfs:label "source biomedical entity from Translator NameResolution API" ;
     nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
 
   :subjectType a nt:GuidedChoicePlaceholder ;
@@ -62,7 +62,7 @@
     nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
 
   :object a nt:GuidedChoicePlaceholder ;
-    rdfs:label "target biomedical entity" ;
+    rdfs:label "target biomedical entity from Translator NameResolution API" ;
     nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
 
   :objectType a nt:GuidedChoicePlaceholder ;
@@ -80,30 +80,46 @@
   xsd:false rdfs:label "false" .
 
   :providedBy a nt:LiteralPlaceholder ;
-    rdfs:label "add the URI of the dataset or agent providing the associations" .
+    rdfs:label "add the identifier of the dataset or agent providing the associations" .
  
   :publication a nt:UriPlaceholder ;
     rdfs:label "add the URI of a publication supporting this association (doi, PubMed, article URL, etc)" .
 
   :hasPhenotype a nt:GuidedChoicePlaceholder ;
-    rdfs:label "provide a URI for the specific phenotype of the target group" ;
+    rdfs:label "provide a URI for the specific phenotype of the target group  from Translator NameResolution API" ;
     nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
 
-  :lifeStageType a nt:GuidedChoicePlaceholder ;
-    rdfs:label "provide the life stage of the target group class" ;
-    nt:possibleValue bl:LifeStage ;
-    nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
+  # :lifeStageType a nt:GuidedChoicePlaceholder ;
+  #   rdfs:label "provide the life stage of the target group class" ;
+  #   nt:possibleValue bl:LifeStage ;
+  #   nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
 
   :lifeStageName a nt:LiteralPlaceholder;
-    rdfs:label "describe the life stage or age of the target group" .
+    rdfs:label "describe the life stage or age of the target group (e.g. Adults, 18-40)" .
   
+  :evidencetype a nt:GuidedChoicePlaceholder ;
+    rdfs:label "add the evidence code from the Evidence Code Ontology (ECO) here" ;
+    nt:possibleValue eco:0000180, eco:0006152, eco:0000000, eco:0007672, eco:0000006, eco:0006153, 
+      eco:0000204, eco:0005548, eco:0000205, eco:0000362 ;
+    nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=ECO&q=" .
+
+  eco:0007672 rdfs:label "computational evidence" .
+  eco:0000006 rdfs:label "experimental evidence" .
+  eco:0000180 rdfs:label "clinical study evidence" .
+  eco:0006153 rdfs:label "self-reported individual's statement evidence" .
+  eco:0006152 rdfs:label "medical practitioner statement evidence" .
+  eco:0000204 rdfs:label "author statement" .
+  eco:0005548 rdfs:label "biological system reconstruction evidence based on inference from background scientific knowledge" .
+  eco:0000205 rdfs:label "curator inference" .
+  eco:0000362 rdfs:label "computational inference" .
+
   :hasDrug1 a nt:GuidedChoicePlaceholder ;
-    rdfs:label "provide the drugs used by this target group" ;
-    nt:possibleValue :subject, :object ;
+    rdfs:label "provide the drugs used by this target group from Translator NameResolution API" ;
+    # nt:possibleValue :subject, :object ;
     nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
 
   :hasDrug2 a nt:GuidedChoicePlaceholder ;
-    rdfs:label "provide the drugs used by this target group" ;
+    rdfs:label "provide the drugs used by this target group from Translator NameResolution API" ;
     nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
 
   # :qualifierType a nt:GuidedChoicePlaceholder ;
@@ -121,6 +137,8 @@
     rdfs:label "This association" .
   :lifeStage a nt:LocalResource ;
     rdfs:label "The target group life stage" .
+  :targetgroup a nt:LocalResource ;
+    rdfs:label "The target group evidence" .
 
 
   # https://biolink.github.io/biolink-model/docs/ClinicalModifier.html
@@ -247,7 +265,7 @@
   :st12 a nt:OptionalStatement ;
     rdf:subject :lifeStage ;
     rdf:predicate rdf:type ;
-    rdf:object :lifeStageType ;
+    rdf:object bl:LifeStage ;
     nt:statementOrder 13 .
 
   :st13 a nt:OptionalStatement ;
@@ -258,21 +276,46 @@
 
   :st14 a nt:OptionalStatement ;
     rdf:subject :association ;
+    rdf:predicate bl:has_evidence ;
+    rdf:object :targetgroup ;
+    nt:statementOrder 12 .
+
+  :st15 a nt:OptionalStatement ;
+    rdf:subject :targetgroup ;
+    rdf:predicate rdf:type ;
+    rdf:object :evidencetype ;
+    nt:statementOrder 12 .
+
+  :st16 a nt:OptionalStatement ;
+    rdf:subject :targetgroup ;
     rdf:predicate bl:has_phenotype ;
     rdf:object :hasPhenotype ;
     nt:statementOrder 12 .
 
-  :st15 a nt:OptionalStatement ;
-    rdf:subject :association ;
+  :st17 a nt:OptionalStatement ;
+    rdf:subject :targetgroup ;
     rdf:predicate bl:has_drug ;
     rdf:object :hasDrug1 ;
     nt:statementOrder 15 .
 
-  :st16 a nt:OptionalStatement ;
-    rdf:subject :association ;
+  :st18 a nt:OptionalStatement ;
+    rdf:subject :targetgroup ;
     rdf:predicate bl:has_drug ;
     rdf:object :hasDrug2 ;
     nt:statementOrder 16 .
+
+  :st19 a nt:OptionalStatement ;
+    rdf:subject :targetgroup ;
+    rdf:predicate bl:category ;
+    rdf:object bl:EvidenceType ;
+    # TODO: might be bl:PopulationOfIndividualOrganisms
+    nt:statementOrder 12 .
+
+  :st20 a rdf:Statement ;
+    rdf:subject :association ;
+    rdf:predicate rdf:type ;
+    rdf:object rdf:Statement ;
+    nt:statementOrder 13 .
   
 
     # bl:qualifiers a bl:OrganismalEntityAsAModelOfDiseaseAssociation
@@ -303,9 +346,10 @@
   rdf:subject rdfs:label "has subject" .
   rdf:object rdfs:label "has object" .
   rdf:predicate rdfs:label "has predicate" .
-  bl:association_type rdfs:label "has type" .
+  rdf:Statement rdfs:label "association Statement" .
+  bl:association_type rdfs:label "has BioLink type" .
   bl:relation rdfs:label "has relation" .
-  bl:category rdfs:label "is a" .
+  bl:category rdfs:label "is in biolink category" .
   rdf:type rdfs:label "has type" .
   rdfs:label rdfs:label "has label" .
 
@@ -316,6 +360,8 @@
   bl:qualifiers rdfs:label "is qualified by" .
   bl:provided_by rdfs:label "is provided by" .
   bl:has_phenotype rdfs:label "has phenotype" .
+
+  bl:EvidenceType rdfs:label "EvidenceType" .
 
   bl:description rdfs:label "is described by" .
   bl:id rdfs:label "has id" .
