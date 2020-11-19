@@ -18,6 +18,7 @@
 @prefix evi: <https://w3id.org/EVI#> .
 @prefix dao: <https://w3id.org/dao/dao#> .
 @prefix eco: <http://purl.obolibrary.org/obo/ECO_> .
+@prefix ro: <http://purl.obolibrary.org/obo/RO_>
 
 # Published at http://purl.org/np/RALHoHT9IowYzd70PoUx_izMLserXgm2y08vd0nnaXilI
 # Access it directly: http://localhost:37373/publish?template=http://purl.org/np/RALHoHT9IowYzd70PoUx_izMLserXgm2y08vd0nnaXilI
@@ -35,9 +36,12 @@
       :st08, :st09, :st10, :st11, :st12, :st13, :st14, :st15, :st16, :st17, :st18, :st19 .
 
   :associationRelation a nt:GuidedChoicePlaceholder ;
-    rdfs:label "provide the relation between the 2 concepts of the association from RO (e.g. interacts with)" ;
+    rdfs:label "provide the relation between the 2 concepts of the association from RO" ;
+    nt:possibleValue ro:0002434 ;
     nt:possibleValuesFromApi "https://www.ebi.ac.uk/ols/api/select?ontology=ro&q=" .
   # https://www.ebi.ac.uk/ols/docs/api
+
+  ro:0002434 rdfs:label "interacts with"
 
   :associationType a nt:GuidedChoicePlaceholder ;
     rdfs:label "provide the association class from the BioLink model" ;
@@ -83,10 +87,10 @@
     rdfs:label "add the identifier of the dataset or agent providing the associations" .
  
   :publication a nt:UriPlaceholder ;
-    rdfs:label "add the URI of a publication supporting this association (doi, PubMed, article URL, etc)" .
+    rdfs:label "add the URI of a publication supporting this association (doi, PubMed, URL...)" .
 
   :hasPhenotype a nt:GuidedChoicePlaceholder ;
-    rdfs:label "provide a URI for the specific phenotype of the target group  from Translator NameResolution API" ;
+    rdfs:label "provide a URI for the phenotype of the target group  from Translator NameResolution API" ;
     nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
 
   # :lifeStageType a nt:GuidedChoicePlaceholder ;
@@ -372,6 +376,6 @@
 }
 :pubinfo {
   : dct:creator orcid:0000-0003-4727-9435 ;
-    dct:created "2020-11-19T10:00:00+01:00"^^xsd:dateTime .
-    npx:supersedes <http://purl.org/np/RAAdEyxoy0xW37qmApBFwIdMX1a3qDJOigUSluB1DgF4c> .
+    dct:created "2020-11-20T10:00:00+01:00"^^xsd:dateTime .
+    npx:supersedes <http://purl.org/np/RA8AXz5jnk5caKG-RnOT39_RD_WmPG4chQc2cBoiIzQ_U> .
 }
