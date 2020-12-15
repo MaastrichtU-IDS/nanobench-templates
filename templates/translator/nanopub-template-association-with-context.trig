@@ -18,10 +18,7 @@
 @prefix evi: <https://w3id.org/EVI#> .
 @prefix dao: <https://w3id.org/dao/dao#> .
 @prefix eco: <http://purl.obolibrary.org/obo/ECO_> .
-@prefix ro: <http://purl.obolibrary.org/obo/RO_>
-
-# Published at http://purl.org/np/RALHoHT9IowYzd70PoUx_izMLserXgm2y08vd0nnaXilI
-# Access it directly: http://localhost:37373/publish?template=http://purl.org/np/RALHoHT9IowYzd70PoUx_izMLserXgm2y08vd0nnaXilI
+@prefix ro: <http://purl.obolibrary.org/obo/RO_> .
 
 :Head {
   : np:hasAssertion :assertion ;
@@ -31,9 +28,9 @@
 }
 :assertion {
   :assertion a nt:AssertionTemplate ;
-    rdfs:label "Defining a biomedical association with its context" ;
+    rdfs:label "Defining a biomedical association with its context using the BioLink model" ;
     nt:hasStatement :st00 , :st01, :st02 , :st03 , :st04 , :st05, :st06, :st07, 
-      :st08, :st09, :st10, :st11, :st12, :st13, :st14, :st15, :st16, :st17, :st18, :st19 .
+      :st08, :st09, :st10, :st11, :st12, :st13, :st14, :st15 .
 
   :associationRelation a nt:GuidedChoicePlaceholder ;
     rdfs:label "provide the relation between the 2 concepts of the association from RO" ;
@@ -41,7 +38,7 @@
     nt:possibleValuesFromApi "https://www.ebi.ac.uk/ols/api/select?ontology=ro&q=" .
   # https://www.ebi.ac.uk/ols/docs/api
 
-  ro:0002434 rdfs:label "interacts with"
+  ro:0002434 rdfs:label "interacts with" .
 
   :associationType a nt:GuidedChoicePlaceholder ;
     rdfs:label "provide the association class from the BioLink model" ;
@@ -192,13 +189,13 @@
     rdf:subject :association ;
     rdf:predicate rdfs:label ;
     rdf:object :readableassertion ;
-    nt:statementOrder 1 .
+    nt:statementOrder 0 .
 
   :st01 a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate rdf:subject ;
     rdf:object :subject ;
-    nt:statementOrder 2 .
+    nt:statementOrder 1 .
 
   :st02 a rdf:Statement ;
     rdf:subject :subject ;
@@ -210,31 +207,31 @@
     rdf:subject :association ;
     rdf:predicate rdf:object ;
     rdf:object :object ;
-    nt:statementOrder 4 .
+    nt:statementOrder 3 .
 
   :st04 a rdf:Statement ;
     rdf:subject :object ;
     rdf:predicate bl:category ;
     rdf:object :objectType ;
-    nt:statementOrder 2 .
+    nt:statementOrder 4 .
 
   :st05 a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate bl:association_type ;
     rdf:object :associationType ;
-    nt:statementOrder 0 .
+    nt:statementOrder 5 .
 
   :st06 a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate bl:relation ;
     rdf:object :associationRelation ;
-    nt:statementOrder 1 .
+    nt:statementOrder 6 .
 
   :st07 a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate rdf:predicate ;
     rdf:object :associationPredicate ;
-    nt:statementOrder 1 .
+    nt:statementOrder 7 .
 
   # :st07 a nt:OptionalStatement ;
   #   rdf:subject :association  ;
@@ -246,80 +243,86 @@
     rdf:subject :association ;
     rdf:predicate bl:negated ;
     rdf:object :negated ;
-    nt:statementOrder 6 .
+    nt:statementOrder 8 .
 
   :st09 a nt:OptionalStatement ;
     rdf:subject :association ;
     rdf:predicate bl:provided_by ;
     rdf:object :providedBy ;
-    nt:statementOrder 7 .
+    nt:statementOrder 9 .
 
   :st10 a nt:OptionalStatement ;
     rdf:subject :association ;
     rdf:predicate bl:publications ;
     rdf:object :publication ;
-    nt:statementOrder 8 .
+    nt:statementOrder 10 .
 
-  :st11 a nt:OptionalStatement ;
+  :st11 rdf:type nt:OptionalStatement , nt:GroupedStatement ;
+		nt:hasStatement :st11a , :st11b , :st11c .
+
+  :st11a a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate bl:stage_qualifier ;
     rdf:object :lifeStage ;
-    nt:statementOrder 13 .
+    nt:statementOrder 11 .
 
-  :st12 a nt:OptionalStatement ;
+  :st11b a rdf:Statement ;
     rdf:subject :lifeStage ;
     rdf:predicate rdf:type ;
     rdf:object bl:LifeStage ;
-    nt:statementOrder 13 .
+    nt:statementOrder 12 .
 
-  :st13 a nt:OptionalStatement ;
+  :st11c a rdf:Statement ;
     rdf:subject :lifeStage ;
     rdf:predicate rdfs:label ;
     rdf:object :lifeStageName ;
     nt:statementOrder 13 .
 
-  :st14 a nt:OptionalStatement ;
+  :st12 rdf:type nt:OptionalStatement , nt:GroupedStatement ;
+		nt:hasStatement :st12a , :st12b , :st12c , :st12d .
+
+  :st12a a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate bl:has_evidence ;
     rdf:object :targetgroup ;
-    nt:statementOrder 12 .
+    nt:statementOrder 14 .
 
-  :st15 a nt:OptionalStatement ;
+  :st12b a rdf:Statement ;
     rdf:subject :targetgroup ;
     rdf:predicate rdf:type ;
     rdf:object :evidencetype ;
-    nt:statementOrder 12 .
+    nt:statementOrder 15 .
 
-  :st16 a nt:OptionalStatement ;
+  :st12c a rdf:Statement ;
     rdf:subject :targetgroup ;
     rdf:predicate bl:has_phenotype ;
     rdf:object :hasPhenotype ;
-    nt:statementOrder 12 .
-
-  :st17 a nt:OptionalStatement ;
-    rdf:subject :targetgroup ;
-    rdf:predicate bl:has_drug ;
-    rdf:object :hasDrug1 ;
-    nt:statementOrder 15 .
-
-  :st18 a nt:OptionalStatement ;
-    rdf:subject :targetgroup ;
-    rdf:predicate bl:has_drug ;
-    rdf:object :hasDrug2 ;
     nt:statementOrder 16 .
 
-  :st19 a nt:OptionalStatement ;
+  :st12d a rdf:Statement ;
     rdf:subject :targetgroup ;
     rdf:predicate bl:category ;
     rdf:object bl:EvidenceType ;
     # TODO: might be bl:PopulationOfIndividualOrganisms
-    nt:statementOrder 12 .
+    nt:statementOrder 17 .
 
-  :st20 a rdf:Statement ;
+  :st13 a nt:OptionalStatement ;
+    rdf:subject :targetgroup ;
+    rdf:predicate bl:has_drug ;
+    rdf:object :hasDrug1 ;
+    nt:statementOrder 18 .
+
+  :st14 a nt:OptionalStatement ;
+    rdf:subject :targetgroup ;
+    rdf:predicate bl:has_drug ;
+    rdf:object :hasDrug2 ;
+    nt:statementOrder 19 .
+
+  :st15 a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate rdf:type ;
     rdf:object rdf:Statement ;
-    nt:statementOrder 13 .
+    nt:statementOrder 20 .
   
 
     # bl:qualifiers a bl:OrganismalEntityAsAModelOfDiseaseAssociation
@@ -353,7 +356,7 @@
   rdf:Statement rdfs:label "association Statement" .
   bl:association_type rdfs:label "has BioLink type" .
   bl:relation rdfs:label "has relation" .
-  bl:category rdfs:label "is in biolink category" .
+  bl:category rdfs:label "is a" .
   rdf:type rdfs:label "has type" .
   rdfs:label rdfs:label "has label" .
 
@@ -372,10 +375,10 @@
 
 }
 :provenance {
-  :assertion prov:wasAttributedTo orcid:0000-0003-4727-9435 .
+  :assertion prov:wasAttributedTo orcid:0000-0002-1501-1082 .
 }
 :pubinfo {
-  : dct:creator orcid:0000-0003-4727-9435 ;
-    dct:created "2020-11-20T10:00:00+01:00"^^xsd:dateTime .
-    npx:supersedes <http://purl.org/np/RA8AXz5jnk5caKG-RnOT39_RD_WmPG4chQc2cBoiIzQ_U> .
+  : dct:creator orcid:0000-0002-1501-1082 ;
+    dct:created "2020-12-13T10:00:00+01:00"^^xsd:dateTime ;
+    npx:supersedes <http://purl.org/np/RA3e5g4QDiQlJU4gsAfo5KmMBXQqU5tQF2_ea79FtMjNU> .
 }
