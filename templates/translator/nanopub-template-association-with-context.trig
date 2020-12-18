@@ -114,13 +114,9 @@
   eco:0000205 rdfs:label "curator inference" .
   eco:0000362 rdfs:label "computational inference" .
 
-  :hasDrug1 a nt:GuidedChoicePlaceholder ;
+  :hasDrug a nt:GuidedChoicePlaceholder ;
     rdfs:label "provide the drugs used by this target group from Translator NameResolution API" ;
     # nt:possibleValue :subject, :object ;
-    nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
-
-  :hasDrug2 a nt:GuidedChoicePlaceholder ;
-    rdfs:label "provide the drugs used by this target group from Translator NameResolution API" ;
     nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
 
   # :qualifierType a nt:GuidedChoicePlaceholder ;
@@ -258,71 +254,67 @@
     nt:statementOrder 10 .
 
   :st11 rdf:type nt:OptionalStatement , nt:GroupedStatement ;
-		nt:hasStatement :st11a , :st11b , :st11c .
+		nt:hasStatement :st11a , :st11b , :st11c ;
+    nt:statementOrder 11 .
 
   :st11a a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate bl:stage_qualifier ;
     rdf:object :lifeStage ;
-    nt:statementOrder 11 .
+    nt:statementOrder 1 .
 
   :st11b a rdf:Statement ;
     rdf:subject :lifeStage ;
-    rdf:predicate rdf:type ;
-    rdf:object bl:LifeStage ;
-    nt:statementOrder 12 .
+    rdf:predicate rdfs:label ;
+    rdf:object :lifeStageName ;
+    nt:statementOrder 2 .
 
   :st11c a rdf:Statement ;
     rdf:subject :lifeStage ;
-    rdf:predicate rdfs:label ;
-    rdf:object :lifeStageName ;
-    nt:statementOrder 13 .
+    rdf:predicate rdf:type ;
+    rdf:object bl:LifeStage ;
+    nt:statementOrder 3 .
 
   :st12 rdf:type nt:OptionalStatement , nt:GroupedStatement ;
-		nt:hasStatement :st12a , :st12b , :st12c , :st12d .
+		nt:hasStatement :st12a , :st12b , :st12c ;
+    nt:statementOrder 12 .
 
   :st12a a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate bl:has_evidence ;
     rdf:object :targetgroup ;
-    nt:statementOrder 14 .
+    nt:statementOrder 1 .
 
   :st12b a rdf:Statement ;
     rdf:subject :targetgroup ;
     rdf:predicate rdf:type ;
     rdf:object :evidencetype ;
-    nt:statementOrder 15 .
+    nt:statementOrder 2 .
 
   :st12c a rdf:Statement ;
-    rdf:subject :targetgroup ;
-    rdf:predicate bl:has_phenotype ;
-    rdf:object :hasPhenotype ;
-    nt:statementOrder 16 .
-
-  :st12d a rdf:Statement ;
     rdf:subject :targetgroup ;
     rdf:predicate bl:category ;
     rdf:object bl:EvidenceType ;
     # TODO: might be bl:PopulationOfIndividualOrganisms
-    nt:statementOrder 17 .
+    nt:statementOrder 3 .
 
-  :st13 a nt:OptionalStatement ;
+  :st13 a nt:OptionalStatement, nt:RepeatableStatement ;
+    rdf:subject :targetgroup ;
+    rdf:predicate bl:has_phenotype ;
+    rdf:object :hasPhenotype ;
+    nt:statementOrder 13 .
+
+  :st14 a nt:OptionalStatement, nt:RepeatableStatement ;
     rdf:subject :targetgroup ;
     rdf:predicate bl:has_drug ;
-    rdf:object :hasDrug1 ;
-    nt:statementOrder 18 .
-
-  :st14 a nt:OptionalStatement ;
-    rdf:subject :targetgroup ;
-    rdf:predicate bl:has_drug ;
-    rdf:object :hasDrug2 ;
-    nt:statementOrder 19 .
+    rdf:object :hasDrug ;
+    nt:statementOrder 14 .
 
   :st15 a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate rdf:type ;
     rdf:object rdf:Statement ;
-    nt:statementOrder 20 .
+    nt:statementOrder 15 .
   
 
     # bl:qualifiers a bl:OrganismalEntityAsAModelOfDiseaseAssociation
@@ -380,5 +372,5 @@
 :pubinfo {
   : dct:creator orcid:0000-0002-1501-1082 ;
     dct:created "2020-12-13T10:00:00+01:00"^^xsd:dateTime ;
-    npx:supersedes <http://purl.org/np/RA3e5g4QDiQlJU4gsAfo5KmMBXQqU5tQF2_ea79FtMjNU> .
+    npx:supersedes <http://purl.org/np/RAOzuSRArHzMrxBxMTsOdOn7r7v5EIlDOgTH0VR6ANiac> .
 }
