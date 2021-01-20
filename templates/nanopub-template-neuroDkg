@@ -1,2 +1,0 @@
-Sign a nanopub template ( nanopub-template.trig) in the current folder using nanopub-java image from DockerHub:
-docker run -it --rm -v ~/.nanopub:/root/.nanopub -v $(pwd):/data umids/nanopub-java sign /data/nanopub.trig
