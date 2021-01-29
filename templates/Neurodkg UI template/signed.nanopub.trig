@@ -1,0 +1,155 @@
+@prefix this: <http://purl.org/np/RA1qFYcifL-R-TLdaNFuglOprNuiUZDy2S0bifJPi3aPk> .
+@prefix sub: <http://purl.org/np/RA1qFYcifL-R-TLdaNFuglOprNuiUZDy2S0bifJPi3aPk#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix np: <http://www.nanopub.org/nschema#> .
+@prefix orcid: <https://orcid.org/> .
+@prefix nt: <https://w3id.org/np/o/ntemplate/> .
+@prefix npx: <http://purl.org/nanopub/x/> .
+@prefix schema: <https://schema.org/> .
+@prefix nkg: <https://w3id.org/neurodkg/> .
+
+sub:Head {
+  this: np:hasAssertion sub:assertion;
+    np:hasProvenance sub:provenance;
+    np:hasPublicationInfo sub:pubinfo;
+    a np:Nanopublication .
+}
+
+sub:assertion {
+  sub:assertion a nt:AssertionTemplate;
+    rdfs:label "Defining a drug indication with its medical context";
+    nt:hasStatement sub:st00, sub:st01, sub:st02, sub:st03, sub:st04, sub:st05, sub:st06,
+      sub:st07, sub:st08, sub:st09 .
+  
+  sub:audienceType a nt:LiteralPlaceholder;
+    rdfs:label "has the target group (eg. adult, pregnant)" .
+  
+  sub:condition a nt:GuidedChoicePlaceholder;
+    rdfs:label "define the condition for target population using DOID";
+    nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&include_properties=false&ontologies=DOID&q=" .
+  
+  sub:disease a nt:GuidedChoicePlaceholder;
+    rdfs:label "has disease using DOID";
+    nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&include_properties=false&ontologies=DOID&q=" .
+  
+  sub:drug a nt:UriPlaceholder;
+    rdfs:label "add a Drugbank identifier here (e.g. DB00295)";
+    nt:hasPrefix "http://identifiers.org/drugbank/";
+    nt:hasPrefixLabel " has the drug";
+    nt:hasRegex "[A-Z]{2}\\d{5}" .
+  
+  sub:indi_type a nt:GuidedChoicePlaceholder;
+    rdfs:label "add the indication type for medical therapy";
+    nt:possibleValue schema:ApprovedIndication, schema:PreventionIndication, schema:TreatmentIndication,
+      nkg:AdjunctiveTherapy, nkg:SymptomaticReliefIndication .
+  
+  sub:maxAge a nt:LiteralPlaceholder;
+    rdfs:label "Audiences defined by a person's maximum age.";
+    nt:hasRegex "[0-9]*" .
+  
+  sub:medtherapy a nt:LocalResource;
+    rdfs:label "This medical therapy " .
+  
+  sub:minAge a nt:LiteralPlaceholder;
+    rdfs:label "Audiences defined by a person's minimum age.";
+    nt:hasRegex "[0-9]*" .
+  
+  sub:quotedtext a nt:LiteralPlaceholder;
+    rdfs:label "add a quote here" .
+  
+  sub:st00 rdf:object sub:quotedtext;
+    rdf:predicate prov:quotedText;
+    rdf:subject sub:medtherapy;
+    a rdf:Statement;
+    nt:statementOrder 1 .
+  
+  sub:st01 rdf:object sub:drug;
+    rdf:predicate schema:drug;
+    rdf:subject sub:medtherapy;
+    a rdf:Statement;
+    nt:statementOrder 2 .
+  
+  sub:st02 rdf:object sub:medtherapy;
+    rdf:predicate schema:possibleTreatment;
+    rdf:subject sub:disease;
+    a rdf:Statement;
+    nt:statementOrder 3 .
+  
+  sub:st03 rdf:object sub:indi_type;
+    rdf:predicate nkg:indicationType;
+    rdf:subject sub:medtherapy;
+    a rdf:Statement;
+    nt:statementOrder 4 .
+  
+  sub:st04 rdf:object sub:targetpop;
+    rdf:predicate schema:targetPopulation;
+    rdf:subject sub:medtherapy;
+    a rdf:Statement;
+    nt:statementOrder 5 .
+  
+  sub:st05 rdf:object sub:audienceType;
+    rdf:predicate schema:audienceType;
+    rdf:subject sub:targetpop;
+    a rdf:Statement, nt:OptionalStatement;
+    nt:statementOrder 6 .
+  
+  sub:st06 rdf:object sub:minAge;
+    rdf:predicate schema:requiredMinAge;
+    rdf:subject sub:targetpop;
+    a rdf:Statement, nt:OptionalStatement;
+    nt:statementOrder 7 .
+  
+  sub:st07 rdf:object sub:maxAge;
+    rdf:predicate schema:requiredMaxAge;
+    rdf:subject sub:targetpop;
+    a rdf:Statement, nt:OptionalStatement;
+    nt:statementOrder 8 .
+  
+  sub:st08 rdf:object sub:condition;
+    rdf:predicate schema:healthCondition;
+    rdf:subject sub:targetpop;
+    a rdf:Statement, nt:OptionalStatement;
+    nt:statementOrder 9 .
+  
+  sub:st09 rdf:object sub:symptom;
+    rdf:predicate nkg:hasSymptom;
+    rdf:subject sub:targetpop;
+    a rdf:Statement, nt:OptionalStatement;
+    nt:statementOrder 10 .
+  
+  sub:symptom a nt:GuidedChoicePlaceholder;
+    rdfs:label "target biomedical entity from Translator NameResolution API";
+    nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
+  
+  sub:targetpop a nt:LocalResource;
+    rdfs:label "has the target population" .
+  
+  prov:quotedText rdfs:label "claims" .
+  
+  schema:ApprovedIndication rdfs:label "An indication for a medical therapy that has been formally specified or approved by a regulatory body." .
+  
+  schema:PreventionIndication rdfs:label "An indication for preventing an underlying condition, symptom, etc." .
+  
+  schema:TreatmentIndication rdfs:label "An indication for treating an underlying condition." .
+  
+  nkg:SymptomaticReliefIndication rdfs:label "An indication for only managing the symptoms of the condition" .
+}
+
+sub:provenance {
+  sub:assertion prov:wasAttributedTo orcid:0000-0001-7769-4272 .
+}
+
+sub:pubinfo {
+  sub:sig npx:hasAlgorithm "RSA";
+    npx:hasPublicKey "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCOqbrPT5RmzxsvRXGHZSAXPzeRLt9ogiosL3tcPKC0g5J8B1577lnJ3oVKSfD80lgPJdr9K671RazGL/mkZ/yu/uCNqne07Q9jd6OIAEi3fldiVfGK8ZDh43rGWRuG+BlvbZ1lZRFrWsURTKTpMgh0C6vJFRIMkWH6ImbZC5JbbQIDAQAB";
+    npx:hasSignature "Iakpgdpf7j7CvJBxKcWY4S+84hMHRBOp6OCun+6woh8PiGOel8+uU2l09+bLIbgWYSMnHKGZV5mW16Bt6yHz7FlP/YFdMKk4K+sIeAit5XVEvF4f/LYLBQCZY2NYjY4kSyiF8yHDxHLMQ/sEAFkaoU4tP0kIbx/VzaLq/nD7Css=";
+    npx:hasSignatureTarget this: .
+  
+  this: dct:created "2020-12-07T18:00:00.000+01:00"^^xsd:dateTime;
+    dct:creator orcid:0000-0001-7769-4272;
+    npx:supercedes <http://purl.org/np/RAskqjj-YM6iTe-EhzxoSiVC-b9awUfI1y-uQE2q0ZEVI> .
+}
