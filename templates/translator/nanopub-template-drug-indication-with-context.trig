@@ -1,0 +1,403 @@
+@prefix : <http://purl.org/nanopub/temp/template-boilerplate_> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix np: <http://www.nanopub.org/nschema#> .
+@prefix orcid: <https://orcid.org/> .
+@prefix nt: <https://w3id.org/np/o/ntemplate/> .
+@prefix npx: <http://purl.org/nanopub/x/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dctypes: <http://purl.org/dc/dcmitype/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix bl: <https://w3id.org/biolink/vocab/> .
+@prefix sepio: <http://purl.obolibrary.org/obo/SEPIO_> .
+@prefix evi: <https://w3id.org/EVI#> .
+@prefix dao: <https://w3id.org/dao/dao#> .
+@prefix eco: <http://purl.obolibrary.org/obo/ECO_> .
+@prefix ro: <http://purl.obolibrary.org/obo/RO_> .
+@prefix schema: <https://schema.org/> .
+@prefix nkg: <https://w3id.org/um/neurodkg/> .
+
+:Head {
+  : np:hasAssertion :assertion ;
+    np:hasProvenance :provenance ;
+    np:hasPublicationInfo :pubinfo ;
+    a np:Nanopublication .
+}
+:assertion {
+  :assertion a nt:AssertionTemplate ;
+    rdfs:label "Defining a drug indication with its context (NeuroDKG)" ;
+    nt:hasStatement :st00 , :st01, :st02 , :st03 , :st04 , :st05, :st06, :st07, 
+      :st08, :st09, :st10, :st11, :st12, :st13, :st14 .
+
+  :associationRelation a nt:GuidedChoicePlaceholder ;
+    rdfs:label "provide the type of drug indication" ;
+    nt:possibleValue schema:TreatmentIndication, schema:PreventionIndication, 
+      schema:ApprovedIndication, nkg:SymptomaticReliefIndication .
+
+  schema:TreatmentIndication rdfs:label "An indication for treating an underlying condition." .
+  schema:PreventionIndication rdfs:label "An indication for preventing an underlying condition, symptom, etc." .
+  schema:ApprovedIndication rdfs:label "An indication for a medical therapy that has been formally specified or approved by a regulatory body." .
+  nkg:SymptomaticReliefIndication rdfs:label "An indication for only managing the symptoms of the condition" .
+  nkg:OffLabelIndication rdfs:label "An indication found in off-label drug uses" .
+  # nt:possibleValuesFromApi "https://www.ebi.ac.uk/ols/api/select?ontology=ro&q=" .
+  # https://www.ebi.ac.uk/ols/docs/api
+
+
+  # :associationType a nt:GuidedChoicePlaceholder ;
+  #   rdfs:label "provide the association class from the BioLink model" ;
+  #   nt:possibleValue bl:ChemicalToDiseaseOrPhenotypicFeatureAssociation, bl:ChemicalToGeneAssociation, bl:ChemicalToPathwayAssociation, bl:GeneToDiseaseAssociation, bl:PairwiseGeneToGeneInteraction, bl:Association ;
+  #   nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
+
+  # :associationPredicate a nt:GuidedChoicePlaceholder ;
+  #   rdfs:label "search for the association predicate in the BioLink model" ;
+  #   nt:possibleValue bl:treated_by, bl:treats, bl:interacts_with, bl:affects, bl:correlated_with ;
+  #   nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
+
+  :readableassertion a nt:LiteralPlaceholder;
+    rdfs:label "describe the assertion concisely (e.g. tylenol treats pain in adults patients)" .
+
+  :subject a nt:GuidedChoicePlaceholder ;
+    rdfs:label "search for the indicated drug" ;
+    nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
+
+  # :subjectType a nt:GuidedChoicePlaceholder ;
+  #   rdfs:label "search for the subject class in the BioLink model" ;
+  #   nt:possibleValue bl:Drug, bl:Disease, bl:PhenotypicFeature, bl:Gene, bl:Protein, bl:ChemicalSubstance ;
+  #   nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
+
+  :object a nt:GuidedChoicePlaceholder ;
+    rdfs:label "search for the disease treated" ;
+    nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
+
+  # :objectType a nt:GuidedChoicePlaceholder ;
+  #   rdfs:label "search for the object class in the BioLink model" ;
+  #   nt:possibleValue bl:Drug, bl:Disease, bl:PhenotypicFeature, bl:Gene, bl:Protein, bl:ChemicalSubstance ;
+  #   nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
+
+  # :context a nt:LiteralPlaceholder;
+  #   rdfs:label "describe in which context this assertion is true" .
+
+  # TODO: allow nanobench to take any string?
+  # :negated a nt:RestrictedChoicePlaceholder ;
+  #   nt:possibleValue xsd:false, xsd:true .
+  # xsd:true rdfs:label "true" .
+  # xsd:false rdfs:label "false" .
+
+  # :providedBy a nt:LiteralPlaceholder ;
+  #   rdfs:label "add the identifier of the dataset or agent providing the associations" .
+
+  :publication a nt:UriPlaceholder ;
+    rdfs:label "add the URI of a publication supporting this association (doi, PubMed, URL...)" .
+
+  # :lifeStageType a nt:GuidedChoicePlaceholder ;
+  #   rdfs:label "provide the life stage of the cohort class" ;
+  #   nt:possibleValue bl:LifeStage ;
+  #   nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
+
+  :cohortAgeLabel a nt:LiteralPlaceholder;
+    rdfs:label "describe the life stage or age of the cohort (e.g. Adults)" .
+
+  :cohortAgeMin a nt:LiteralPlaceholder;
+    rdfs:label "describe the minimum age of the cohort (e.g. 7)" .
+
+  :cohortAgeMax a nt:LiteralPlaceholder;
+    rdfs:label "describe the maximum age of the cohort (e.g. 80)" .
+
+  :hasPhenotype a nt:GuidedChoicePlaceholder ;
+    rdfs:label "provide additional phenotypes for the cohort" ;
+    nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
+
+  :association a nt:LocalResource ;
+    rdfs:label "this association" .
+  :cohort a nt:LocalResource ;
+    rdfs:label "the study cohort" .
+  
+  # :evidencetype a nt:GuidedChoicePlaceholder ;
+  #   rdfs:label "add the evidence code from the Evidence Code Ontology (ECO) here" ;
+  #   nt:possibleValue ndkg:SymtomaticRelief, eco:0006152, eco:0000000, eco:0007672, eco:0000006, eco:0006153, 
+  #     eco:0000204, eco:0005548, eco:0000205, eco:0000362 ;
+  #   # nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=ECO&q=" .
+
+  # ndkg:SymtomaticRelief rdfs:label "Symtomatic Relief" .
+  # eco:0000006 rdfs:label "experimental evidence" .
+  # eco:0000180 rdfs:label "clinical study evidence" .
+  # eco:0006153 rdfs:label "self-reported individual's statement evidence" .
+  # eco:0006152 rdfs:label "medical practitioner statement evidence" .
+  # eco:0000204 rdfs:label "author statement" .
+  # eco:0005548 rdfs:label "biological system reconstruction evidence based on inference from background scientific knowledge" .
+  # eco:0000205 rdfs:label "curator inference" .
+  # eco:0000362 rdfs:label "computational inference" .
+
+  # :hasDrug a nt:GuidedChoicePlaceholder ;
+  #   rdfs:label "provide the drugs used by this target group from Translator NameResolution API" ;
+  #   # nt:possibleValue :subject, :object ;
+  #   nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
+
+
+  # :qualifierType a nt:GuidedChoicePlaceholder ;
+  #   rdfs:label "provide the qualifier class" ;
+  #   nt:possibleValue bl:OrganismalEntityAsAModelOfDiseaseAssociation, bl:ClinicalModifier ;
+  #   nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
+
+  # :qualifierSubjectType a nt:GuidedChoicePlaceholder ;
+  #   rdfs:label "provide the cohort qualifier class" ;
+  #   nt:possibleValue bl:PopulationOfIndividualOrganisms, bl:LifeStage ;
+  #   nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
+
+
+  # https://biolink.github.io/biolink-model/docs/ClinicalModifier.html
+
+  # Checkout Association for more properties: https://biolink.github.io/biolink-model/docs/Association.html
+  # ChemicalToGeneAssociation: https://biolink.github.io/biolink-model/docs/ChemicalToGeneAssociation.html
+  # ChemicalToDiseaseOrPhenotypicFeatureAssociation: https://biolink.github.io/biolink-model/docs/ChemicalToDiseaseOrPhenotypicFeatureAssociation.html
+  # Use relation or association_type? to define the type of association
+
+  # Checkout Treatment: https://biolink.github.io/biolink-model/docs/Treatment.html
+  # bl:Disease bl:treated_by bl:Treatment
+  # Patient target group???
+  # Use clinical_modifier_qualifier on Association: https://biolink.github.io/biolink-model/docs/clinical_modifier_qualifier.html
+  # "specify the phenotypic abnormalities defined in the Phenotypic abnormality 
+  # subontology, with respect to severity, laterality, age of onset, and other aspects"
+  # But ClinicalModifier seems to only take one value
+  # https://biolink.github.io/biolink-model/docs/ClinicalModifier.html
+
+  # bl:Association bl:qualifiers bl:OrganismalEntityAsAModelOfDiseaseAssociation??
+  #   bl:subject bl:PopulationOfIndividualOrganisms
+  #   bl:object bl:Disease or bl:ChemicalToDiseaseAssociation?
+  #   bl:treated_by bl:Treatment
+  #   bl:onset Age
+  #   bl:
+  # Better use OrganismalEntityAsAModelOfDiseaseAssociation? https://biolink.github.io/biolink-model/docs/OrganismalEntityAsAModelOfDiseaseAssociation.html
+  # A organismal entity (strain, breed) with a predisposition to a disease, 
+  # or bred/created specifically to model a disease.
+  
+  # PopulationOfIndividualOrganisms: https://biolink.github.io/biolink-model/docs/PopulationOfIndividualOrganisms.html
+  # Characteristics can include, but are not limited to, shared geographic location, genetics, phenotypes [Alliance for Genome Resources]
+  # bl:Association hasTargetGroup bl:PopulationOfIndividualOrganisms
+    # Add qualifier to Population?
+  # Age "Onset" on Association: https://biolink.github.io/biolink-model/docs/Onset.html
+  # Sex: https://biolink.github.io/biolink-model/docs/PhenotypicSex.html
+
+  # hasSymptom: has_phenotype
+  # bl:PhenotypicFeature: https://biolink.github.io/biolink-model/docs/PhenotypicFeature.html
+
+  # ActivityAndBehavior: https://biolink.github.io/biolink-model/docs/ActivityAndBehavior.html
+  # Phenomenon: https://biolink.github.io/biolink-model/docs/Phenomenon.html
+  # Procedure: https://biolink.github.io/biolink-model/docs/Procedure.html
+  # EnvironmentalProcess: https://biolink.github.io/biolink-model/docs/EnvironmentalProcess.html
+  # EnvironmentalFeature: https://biolink.github.io/biolink-model/docs/EnvironmentalFeature.html
+  # GeographicLocation or GeographicLocationAtTime: https://biolink.github.io/biolink-model/docs/GeographicLocationAtTime.html
+
+  :st00 a rdf:Statement ;
+    rdf:subject :association ;
+    rdf:predicate rdfs:label ;
+    rdf:object :readableassertion ;
+    nt:statementOrder 0 .
+
+  :st01 a rdf:Statement ;
+    rdf:subject :association ;
+    rdf:predicate rdf:subject ;
+    rdf:object :subject ;
+    nt:statementOrder 1 .
+
+  :st02 a rdf:Statement ;
+    rdf:subject :association ;
+    rdf:predicate rdf:object ;
+    rdf:object :object ;
+    nt:statementOrder 3 .
+
+  :st04 a rdf:Statement ;
+    rdf:subject :association ;
+    rdf:predicate bl:relation ;
+    rdf:object :associationRelation ;
+    nt:statementOrder 6 .
+
+  # :st07 a nt:OptionalStatement ;
+  #   rdf:subject :association  ;
+  #   rdf:predicate dao:context ;
+  #   rdf:object :context ;
+  #   nt:statementOrder 5 .
+
+  # :st08 a nt:OptionalStatement ;
+  #   rdf:subject :association ;
+  #   rdf:predicate bl:negated ;
+  #   rdf:object :negated ;
+  #   nt:statementOrder 8 .
+
+  :st06 a nt:OptionalStatement ;
+    rdf:subject :association ;
+    rdf:predicate bl:publications ;
+    rdf:object :publication ;
+    nt:statementOrder 10 .
+
+  :st07 rdf:type nt:OptionalStatement , nt:GroupedStatement ;
+		nt:hasStatement :st07a , :st07b , :st07c ;
+    nt:statementOrder 11 .
+
+  :st07a a rdf:Statement ;
+    rdf:subject :association ;
+    rdf:predicate bl:has_population_context ;
+    rdf:object :cohort ;
+    nt:statementOrder 12 .
+
+  :st07b a rdf:Statement ;
+    rdf:subject :cohort ;
+    rdf:predicate rdfs:label ;
+    rdf:object :cohortAgeLabel ;
+    nt:statementOrder 13 .
+
+  :st07c a rdf:Statement ;
+    rdf:subject :cohort ;
+    rdf:predicate bl:category ;
+    rdf:object bl:Cohort ;
+    # TODO: might be bl:PopulationOfIndividualOrganisms
+    nt:statementOrder 14 .
+
+  :st08 a nt:OptionalStatement ;
+    rdf:subject :cohort ;
+    rdf:predicate schema:requiredMinAge ;
+    rdf:object :cohortAgeMin ;
+    nt:statementOrder 15 .
+
+  :st09 a nt:OptionalStatement ;
+    rdf:subject :cohort ;
+    rdf:predicate schema:requiredMaxAge ;
+    rdf:object :cohortAgeMax ;
+    nt:statementOrder 16 .
+
+  # :st11c a rdf:Statement ;
+  #   rdf:subject :lifeStage ;
+  #   rdf:predicate rdf:type ;
+  #   rdf:object bl:LifeStage ;
+  #   nt:statementOrder 3 .
+
+  # :st12 rdf:type nt:OptionalStatement , nt:GroupedStatement ;
+	# 	nt:hasStatement :st12a , :st12b , :st12c ;
+  #   nt:statementOrder 12 .
+
+  # :st12a a rdf:Statement ;
+  #   rdf:subject :association ;
+  #   rdf:predicate bl:has_evidence ;
+  #   rdf:object :cohort ;
+  #   nt:statementOrder 1 .
+
+  # :st12b a rdf:Statement ;
+  #   rdf:subject :cohort ;
+  #   rdf:predicate rdf:type ;
+  #   rdf:object :evidencetype ;
+  #   nt:statementOrder 2 .
+
+
+  :st10 a nt:OptionalStatement, nt:RepeatableStatement ;
+    rdf:subject :cohort ;
+    rdf:predicate bl:has_phenotype ;
+    rdf:object :hasPhenotype ;
+    nt:statementOrder 18 .
+
+  # :st14 a nt:OptionalStatement, nt:RepeatableStatement ;
+  #   rdf:subject :cohort ;
+  #   rdf:predicate bl:has_drug ;
+  #   rdf:object :hasDrug ;
+  #   nt:statementOrder 14 .
+
+  :st03 a rdf:Statement ;
+    rdf:subject :association ;
+    rdf:predicate bl:association_type ;
+    rdf:object bl:ChemicalToDiseaseOrPhenotypicFeatureAssociation ;
+    nt:statementOrder 19 .
+
+  :st11 a rdf:Statement ;
+    rdf:subject :association ;
+    rdf:predicate rdf:type ;
+    rdf:object rdf:Statement ;
+    nt:statementOrder 20 .
+  
+  :st14 a rdf:Statement ;
+    rdf:subject :association ;
+    rdf:predicate rdf:predicate ;
+    # rdf:object :associationPredicate ;
+    rdf:object bl:treats ;
+    nt:statementOrder 21 .
+
+  :st05 a rdf:Statement ;
+    rdf:subject :association ;
+    rdf:predicate bl:provided_by ;
+    rdf:object "NeuroDKG" ;
+    nt:statementOrder 22 .
+
+  :st12 a rdf:Statement ;
+    rdf:subject :subject ;
+    rdf:predicate bl:category ;
+    rdf:object bl:Drug ;
+    nt:statementOrder 23 .
+
+  :st13 a rdf:Statement ;
+    rdf:subject :object ;
+    rdf:predicate bl:category ;
+    rdf:object bl:Disease ;
+    nt:statementOrder 24 .
+
+
+    # bl:qualifiers a bl:OrganismalEntityAsAModelOfDiseaseAssociation
+    #   bl:subject a bl:PopulationOfIndividualOrganisms
+    #     bl:has_phenotype
+    #   bl:stage_qualifier a bl:LifeStage
+    #     rdfs:label "adult" (or "18-30")
+    #   bl:relation bl:decreases_response_to
+    #   bl:object a bl:Disease (or bl:ChemicalToDiseaseAssociation?)
+    #   bl:has_drug a bl:Drug (from the association object)
+    #   bl:has_drug a bl:Drug (optional additional treatment) 
+
+    # # # Could be expressed this way in bl:
+    # bl:treated_by bl:Treatment
+    #   bl:has_part bl:DrugExposure
+    #     bl:has_drug bl:Drug
+    
+    # # bl:qualifiers myOwnQualifierURI
+    # bl:clinical_modifier_qualifier bl:ClinicalModifier
+    #   # target_group? hasMinAge, hasCurrentMedication, hasSymptom, 
+    #   # hasTreatment, responseStatus
+    #   bl:has_attribute_type = connects an attribute to a OntologyClass that describes it 
+    #   bl:has_qualitative_value = NamedThing (any URI/entity)
+    #   bl:has_quantitative_value bl:QuantityValue
+    #     bl:has_numeric_value
+    #     bl:has_unit
+
+  rdf:subject rdfs:label "has drug" .
+  rdf:object rdfs:label "has disease" .
+  rdf:predicate rdfs:label "has predicate" .
+  rdf:Statement rdfs:label "association Statement" .
+  bl:association_type rdfs:label "has BioLink type" .
+  bl:relation rdfs:label "has relation" .
+  bl:category rdfs:label "is a" .
+  rdf:type rdfs:label "has type" .
+  rdfs:label rdfs:label "has label" .
+
+  bl:negated rdfs:label "is negated" .
+  bl:has_drug rdfs:label "uses drug" .
+  bl:has_population_context rdfs:label "has population context" .
+  bl:publications rdfs:label "has publications" .
+  bl:qualifiers rdfs:label "is qualified by" .
+  bl:provided_by rdfs:label "is provided by" .
+  bl:has_phenotype rdfs:label "has phenotypes" .
+
+  bl:EvidenceType rdfs:label "EvidenceType" .
+
+  bl:description rdfs:label "is described by" .
+  bl:id rdfs:label "has id" .
+  schema:requiredMinAge rdfs:label "participant minimun age is" .
+  schema:requiredMaxAge rdfs:label "participant maximun age is" .
+}
+:provenance {
+  :assertion prov:wasAttributedTo orcid:0000-0002-1501-1082 .
+}
+:pubinfo {
+  : dct:creator orcid:0000-0002-1501-1082 ;
+    dct:created "2021-03-13T11:00:00+01:00"^^xsd:dateTime ;
+    npx:supersedes <http://purl.org/np/RAIY_jEGi3qq1CclO6h_rccZ6CISLBQDAlJTOeWW49jYk> .
+}
