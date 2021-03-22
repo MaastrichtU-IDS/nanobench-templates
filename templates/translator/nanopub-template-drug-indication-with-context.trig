@@ -37,7 +37,7 @@
   :associationRelation a nt:GuidedChoicePlaceholder ;
     rdfs:label "provide the type of drug indication" ;
     nt:possibleValue schema:TreatmentIndication, schema:PreventionIndication, 
-      schema:ApprovedIndication, nkg:SymptomaticReliefIndication .
+      schema:ApprovedIndication, nkg:SymptomaticReliefIndication, nkg:OffLabelIndication .
 
   schema:TreatmentIndication rdfs:label "An indication for treating an underlying condition." .
   schema:PreventionIndication rdfs:label "An indication for preventing an underlying condition, symptom, etc." .
@@ -71,7 +71,7 @@
   #   nt:possibleValuesFromApi "http://data.bioontology.org/search?pagesize=20&apikey=fd451bec-eacd-4519-b972-90fb6c7007cb&ontologies=BLM&include_properties=true&q=" .
 
   :object a nt:GuidedChoicePlaceholder ;
-    rdfs:label "search for the disease treated" ;
+    rdfs:label "search for the disease it treats" ;
     nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
 
   # :objectType a nt:GuidedChoicePlaceholder ;
@@ -92,7 +92,7 @@
   #   rdfs:label "add the identifier of the dataset or agent providing the associations" .
 
   :publication a nt:UriPlaceholder ;
-    rdfs:label "add the URI of a publication supporting this association (doi, PubMed, URL...)" .
+    rdfs:label "add the URL of a publication supporting this association (doi, PubMed...)" .
 
   # :lifeStageType a nt:GuidedChoicePlaceholder ;
   #   rdfs:label "provide the life stage of the cohort class" ;
@@ -327,7 +327,7 @@
   :st05 a rdf:Statement ;
     rdf:subject :association ;
     rdf:predicate bl:provided_by ;
-    rdf:object "NeuroDKG" ;
+    rdf:object <https://w3id.org/um/NeuroDKG> ;
     nt:statementOrder 22 .
 
   :st12 a rdf:Statement ;
@@ -390,8 +390,8 @@
 
   bl:description rdfs:label "is described by" .
   bl:id rdfs:label "has id" .
-  schema:requiredMinAge rdfs:label "participant minimun age is" .
-  schema:requiredMaxAge rdfs:label "participant maximun age is" .
+  schema:requiredMinAge rdfs:label "participant minimum age is" .
+  schema:requiredMaxAge rdfs:label "participant maximum age is" .
 }
 :provenance {
   :assertion prov:wasAttributedTo orcid:0000-0002-1501-1082 .
@@ -399,5 +399,5 @@
 :pubinfo {
   : dct:creator orcid:0000-0002-1501-1082 ;
     dct:created "2021-03-13T11:00:00+01:00"^^xsd:dateTime ;
-    npx:supersedes <http://purl.org/np/RAIY_jEGi3qq1CclO6h_rccZ6CISLBQDAlJTOeWW49jYk> .
+    npx:supersedes <http://purl.org/np/RANZiWwik7Dn1hm5mfQEe4swx7quqnpS9VWLzIdYvRfsc> .
 }
