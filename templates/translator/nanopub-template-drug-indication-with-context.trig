@@ -20,6 +20,7 @@
 @prefix eco: <http://purl.obolibrary.org/obo/ECO_> .
 @prefix ro: <http://purl.obolibrary.org/obo/RO_> .
 @prefix schema: <https://schema.org/> .
+@prefix ncit: <http://purl.obolibrary.org/obo/NCIT_> .
 @prefix nkg: <https://w3id.org/um/neurodkg/> .
 
 :Head {
@@ -37,13 +38,15 @@
   :associationRelation a nt:GuidedChoicePlaceholder ;
     rdfs:label "provide the type of drug indication" ;
     nt:possibleValue schema:TreatmentIndication, schema:PreventionIndication, 
-      schema:ApprovedIndication, nkg:SymptomaticReliefIndication, nkg:OffLabelIndication .
+      schema:ApprovedIndication, nkg:SymptomaticReliefIndication, nkg:OffLabelIndication ,
+      ncit:C15675 .
 
   schema:TreatmentIndication rdfs:label "An indication for treating an underlying condition." .
   schema:PreventionIndication rdfs:label "An indication for preventing an underlying condition, symptom, etc." .
   schema:ApprovedIndication rdfs:label "An indication for a medical therapy that has been formally specified or approved by a regulatory body." .
   nkg:SymptomaticReliefIndication rdfs:label "An indication for only managing the symptoms of the condition" .
   nkg:OffLabelIndication rdfs:label "An indication found in off-label drug uses" .
+  ncit:C15675 rdfs:label "Adjuvant Therapy, any therapy that is administered to augment or stimulate other treatment modalities or to minimize or prevent disease recurrence subsequent to the main treatment plan. " .
   # nt:possibleValuesFromApi "https://www.ebi.ac.uk/ols/api/select?ontology=ro&q=" .
   # https://www.ebi.ac.uk/ols/docs/api
 
@@ -398,6 +401,6 @@
 }
 :pubinfo {
   : dct:creator orcid:0000-0002-1501-1082 ;
-    dct:created "2021-03-13T11:00:00+01:00"^^xsd:dateTime ;
-    npx:supersedes <http://purl.org/np/RANZiWwik7Dn1hm5mfQEe4swx7quqnpS9VWLzIdYvRfsc> .
+    dct:created "2021-03-14T11:00:00+01:00"^^xsd:dateTime ;
+    npx:supersedes <http://purl.org/np/RAZdZj78B6nKrP1Q00oFzsK07u7WdiY3sToz-H-H2nSgg> .
 }
