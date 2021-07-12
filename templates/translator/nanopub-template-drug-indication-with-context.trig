@@ -32,7 +32,7 @@
 :assertion {
   :assertion a nt:AssertionTemplate ;
     rdfs:label "Defining a drug indication with its context (BioLink model)" ;
-    nt:hasStatement :st00 , :st01, :st02 , :st03 , :st04 , :st05, :st06, :st07, 
+    nt:hasStatement :st00 , :st01, :st02 , :st04 , :st05, :st06, :st07, 
       :st08, :st09, :st10, :st11, :st12, :st13, :st14 .
 
   :associationRelation a nt:GuidedChoicePlaceholder ;
@@ -77,9 +77,9 @@
     rdfs:label "search for the disease it treats" ;
     nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
 
-  :objectNarrower a nt:GuidedChoicePlaceholder ;
-    rdfs:label "optionally provide a narrower concepts for the disease" ;
-    nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
+  # :objectNarrower a nt:GuidedChoicePlaceholder ;
+  #   rdfs:label "optionally provide a narrower concepts for the disease" ;
+  #   nt:possibleValuesFromApi "https://name-resolution-sri.renci.org/lookup?limit=10&string=" .
 
   # :objectType a nt:GuidedChoicePlaceholder ;
   #   rdfs:label "search for the object class in the BioLink model" ;
@@ -218,11 +218,11 @@
     rdf:object :object ;
     nt:statementOrder 3 .
 
-  :st03 a nt:OptionalStatement , nt:RepeatableStatement ;
-    rdf:subject :object ;
-    rdf:predicate bl:narrow_match ;
-    rdf:object :objectNarrower ;
-    nt:statementOrder 3 .
+  # :st03 a nt:OptionalStatement , nt:RepeatableStatement ;
+  #   rdf:subject :object ;
+  #   rdf:predicate bl:narrow_match ;
+  #   rdf:object :objectNarrower ;
+  #   nt:statementOrder 3 .
 
   :st04 a rdf:Statement ;
     rdf:subject :association ;
@@ -398,7 +398,7 @@
   bl:qualifiers rdfs:label "is qualified by" .
   bl:provided_by rdfs:label "is provided by" .
   bl:has_phenotype rdfs:label "has phenotypes" .
-  bl:narrow_match rdfs:label "has more specific concept" .
+  # bl:narrow_match rdfs:label "has more specific concept" .
 
   bl:EvidenceType rdfs:label "EvidenceType" .
 
@@ -413,5 +413,5 @@
 :pubinfo {
   : dct:creator orcid:0000-0002-1501-1082 ;
     dct:created "2021-07-05T11:00:00+01:00"^^xsd:dateTime ;
-    npx:supersedes <http://purl.org/np/RAManV5GZI01JKzW_IPcfOXoiFTcZMmsV7qTCLkdzr4Gs> .
+    npx:supersedes <http://purl.org/np/RAL1BCiD2EAbfDG4fzpdkugnxDmGpoS3xOA5Stkvc-0vQ> .
 }
